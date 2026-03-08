@@ -1,0 +1,46 @@
+---
+---
+<div id="cookie-consent" class="cookie-consent fixed bottom-0 left-0 right-0 bg-forest text-cream p-4 sm:p-6 z-50 shadow-lg translate-y-full transition-transform duration-500" role="dialog" aria-label="Cookie consent">
+  <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-4">
+    <p class="text-sm text-cream/90 flex-1">
+      We use cookies to analyse website traffic. By clicking "Accept", you consent to the use of analytics cookies.
+      <a href="/privacy" class="text-gold underline hover:no-underline">Privacy Policy</a>
+    </p>
+    <div class="flex gap-3 shrink-0">
+      <button id="cookie-reject" class="px-4 py-2 text-sm border border-cream/30 rounded hover:bg-cream/10 transition-colors">
+        Reject
+      </button>
+      <button id="cookie-accept" class="px-4 py-2 text-sm bg-gold text-white rounded hover:bg-amber-600 transition-colors">
+        Accept
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const banner = document.getElementById('cookie-consent');
+  const consent = localStorage.getItem('cookie-consent');
+
+  if (!consent) {
+    setTimeout(() => banner?.classList.remove('translate-y-full'), 1000);
+  } else if (consent === 'accepted') {
+    // Load analytics
+    loadAnalytics();
+  }
+
+  document.getElementById('cookie-accept')?.addEventListener('click', () => {
+    localStorage.setItem('cookie-consent', 'accepted');
+    banner?.classList.add('translate-y-full');
+    loadAnalytics();
+  });
+
+  document.getElementById('cookie-reject')?.addEventListener('click', () => {
+    localStorage.setItem('cookie-consent', 'rejected');
+    banner?.classList.add('translate-y-full');
+  });
+
+  function loadAnalytics() {
+    // GA4 would be loaded here after consent
+    // Placeholder — replace with actual GA4 tag when ready
+  }
+</script>

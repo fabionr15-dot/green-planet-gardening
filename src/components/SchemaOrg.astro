@@ -1,0 +1,69 @@
+---
+interface Props {
+  type?: 'LocalBusiness' | 'BlogPosting' | 'AboutPage' | 'ContactPage' | 'ImageGallery' | 'WebApplication';
+  data?: Record<string, any>;
+}
+
+const { type = 'LocalBusiness', data = {} } = Astro.props;
+
+const localBusiness = {
+  "@context": "https://schema.org",
+  "@type": "LandscapingBusiness",
+  "name": "Green Planet Gardening",
+  "description": "Luxury landscaping company in Cyprus specialising in bespoke garden design, construction and maintenance for villas, resorts and high-end residences.",
+  "url": "https://greenplanetgardening.eu",
+  "logo": "https://greenplanetgardening.eu/images/logo/green-planet-logo.png",
+  "image": "https://greenplanetgardening.eu/images/hero/hero-home.jpg",
+  "telephone": "+35799245332",
+  "email": "hello@greenplanetgardening.eu",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Kerynias 5, Marathounta",
+    "addressLocality": "Paphos",
+    "postalCode": "8520",
+    "addressCountry": "CY"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 34.7720,
+    "longitude": 32.4297
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    "opens": "08:00",
+    "closes": "19:00"
+  },
+  "priceRange": "\u20AC\u20AC\u20AC",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Cyprus"
+  },
+  "sameAs": [
+    "https://www.instagram.com/green.planet.cy/",
+    "https://www.facebook.com/GreenPlanetCy"
+  ]
+};
+
+let schema;
+if (type === 'BlogPosting') {
+  schema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": data.title,
+    "description": data.description,
+    "image": data.image ? `https://greenplanetgardening.eu${data.image}` : undefined,
+    "datePublished": data.pubDate,
+    "author": { "@type": "Organization", "name": "Green Planet Gardening" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Green Planet Gardening",
+      "logo": { "@type": "ImageObject", "url": "https://greenplanetgardening.eu/images/logo/green-planet-logo.png" }
+    }
+  };
+} else {
+  schema = localBusiness;
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

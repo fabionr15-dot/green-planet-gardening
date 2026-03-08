@@ -1,0 +1,32 @@
+---
+interface Props {
+  image: string;
+  alt: string;
+  title: string;
+  description: string;
+  link?: string;
+}
+
+const { image, alt, title, description, link = '/services' } = Astro.props;
+---
+
+<div class="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+  <div class="overflow-hidden aspect-[4/3]">
+    <img
+      src={image}
+      alt={alt}
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      loading="lazy"
+      width="600"
+      height="450"
+    />
+  </div>
+  <div class="p-6 sm:p-8">
+    <h3 class="text-xl font-playfair text-forest mb-3">{title}</h3>
+    <p class="text-warm-gray text-sm leading-relaxed mb-4">{description}</p>
+    <a href={link} class="text-gold text-sm uppercase tracking-wider hover:text-amber-600 transition-colors font-medium inline-flex items-center gap-2">
+      Learn More
+      <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>

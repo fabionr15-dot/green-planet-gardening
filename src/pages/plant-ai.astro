@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PlantAI from '../components/PlantAI.jsx';
+---
+
+<BaseLayout
+  title="Plant Identifier Cyprus | AI-Powered Plant Care Guide — Green Planet Gardening"
+  description="Identify any plant instantly with your camera and get care instructions tailored for Cyprus's Mediterranean climate. Free AI-powered tool by Green Planet Gardening."
+  schemaType="WebApplication"
+>
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl sm:text-5xl font-playfair text-forest mb-6">GreenPlant AI — Your Intelligent Plant Guide</h1>
+        <p class="text-charcoal/70 max-w-2xl mx-auto leading-relaxed">
+          Snap a photo of any plant and get instant identification plus a complete care guide tailored for Cyprus's Mediterranean climate. Our AI-powered tool combines advanced plant recognition with expert knowledge from over a decade of professional landscaping in Cyprus.
+        </p>
+      </div>
+
+      <!-- How it works -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div class="text-center p-6 bg-sand/20 rounded-lg">
+          <div class="text-4xl mb-3">&#128248;</div>
+          <h3 class="font-playfair text-forest text-lg mb-2">Snap</h3>
+          <p class="text-warm-gray text-sm">Take a photo of any plant with your phone camera</p>
+        </div>
+        <div class="text-center p-6 bg-sand/20 rounded-lg">
+          <div class="text-4xl mb-3">&#129302;</div>
+          <h3 class="font-playfair text-forest text-lg mb-2">Identify</h3>
+          <p class="text-warm-gray text-sm">Our AI recognises the plant in seconds</p>
+        </div>
+        <div class="text-center p-6 bg-sand/20 rounded-lg">
+          <div class="text-4xl mb-3">&#127793;</div>
+          <h3 class="font-playfair text-forest text-lg mb-2">Learn</h3>
+          <p class="text-warm-gray text-sm">Get a complete care guide for Cyprus climate</p>
+        </div>
+      </div>
+
+      <!-- Plant AI React Component -->
+      <PlantAI client:load />
+    </div>
+  </section>
+
+  <!-- Why We Built This -->
+  <section class="py-20 bg-sand/20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-6">Why We Built This</h2>
+      <p class="text-charcoal/80 leading-relaxed mb-4">
+        At Green Planet Gardening, we believe knowledge should be shared. After years of clients asking us about the plants in their gardens — what they are, how to care for them, what's wrong with them — we decided to put our expertise into a tool everyone can use.
+      </p>
+      <p class="text-charcoal/80 leading-relaxed mb-8">
+        GreenPlant AI combines cutting-edge plant recognition technology with the real-world Mediterranean gardening knowledge our team has built over more than a decade in Cyprus. Every care recommendation considers the specific challenges of our climate: the intense summer heat, the limited rainfall, the alkaline soils, and the unique pest pressures of the island.
+      </p>
+      <p class="text-charcoal/70">
+        For hands-on professional help, <a href="/contact" class="text-gold hover:text-amber-600 transition-colors">contact our team</a> or explore our <a href="/services" class="text-gold hover:text-amber-600 transition-colors">maintenance services</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Garden Blog | Tips, Inspiration & Mediterranean Landscaping — Green Planet Gardening"
+  description="Expert gardening tips for Cyprus. Mediterranean landscaping inspiration, plant care guides, and design ideas from the luxury landscaping specialists at Green Planet Gardening."
+>
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl sm:text-5xl font-playfair text-forest mb-6">The Green Planet Journal</h1>
+        <p class="text-charcoal/70 max-w-2xl mx-auto leading-relaxed">
+          Insights, inspiration, and expert knowledge from our team. Discover Mediterranean gardening tips, design ideas, and behind-the-scenes looks at our luxury landscaping projects across Cyprus.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            image={post.data.image}
+            imageAlt={post.data.imageAlt}
+            date={post.data.pubDate}
+            category={post.data.category}
+            slug={post.slug}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

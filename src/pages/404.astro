@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found — Green Planet Gardening"
+  description="The page you are looking for could not be found. Return to the Green Planet Gardening homepage."
+>
+  <section class="py-32 sm:py-40">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-8xl sm:text-9xl font-playfair text-sage/20 block mb-4">404</span>
+      <h1 class="text-3xl sm:text-4xl font-playfair text-forest mb-4">Lost in the Garden?</h1>
+      <p class="text-charcoal/70 text-lg mb-10 max-w-md mx-auto">
+        It seems the page you're looking for has wandered off the path. Let us guide you back.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/"
+          class="inline-block bg-forest text-cream px-8 py-3 text-sm uppercase tracking-wider hover:bg-sage transition-colors rounded"
+        >
+          Go Home
+        </a>
+        <a
+          href="/services"
+          class="inline-block bg-gold text-white px-8 py-3 text-sm uppercase tracking-wider hover:bg-amber-600 transition-colors rounded"
+        >
+          View Our Services
+        </a>
+        <a
+          href="/contact"
+          class="inline-block border border-forest text-forest px-8 py-3 text-sm uppercase tracking-wider hover:bg-forest hover:text-cream transition-colors rounded"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

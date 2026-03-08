@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Gallery from '../components/Gallery.astro';
+import Testimonials from '../components/Testimonials.astro';
+import services from '../data/services.json';
+import galleryData from '../data/gallery.json';
+
+const showcaseImages = galleryData.filter(img =>
+  ['6f86d623', '15757', 'd50_6815', 'd50_6847', 'd50_7072', 'z62_0988-2'].some(name => img.src.includes(name))
+);
+---
+
+<BaseLayout
+  title="Green Planet Gardening | Luxury Landscaping Cyprus – Villas, Resorts & Residences"
+  description="Family-run luxury landscaping in Cyprus. 10+ years creating bespoke gardens for private villas, resorts & high-end residences in Paphos, Limassol & beyond."
+>
+  <!-- Hero -->
+  <Hero
+    title="Where Nature Meets Excellence"
+    subtitle="Luxury landscaping for private villas, resorts, and high-end residences across Cyprus. Designed by three brothers who believe every garden tells a unique story."
+    tagline="Passion · Precision · Trust · Timeless"
+    ctaText="Request a Consultation"
+    ctaLink="/contact"
+    backgroundImage="/images/hero/hero-home.jpg"
+  />
+
+  <!-- Trust Bar -->
+  <section class="bg-forest py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      <div class="flex items-center justify-center gap-2 text-cream/90 text-sm">
+        <span class="text-gold text-lg">&#127807;</span> 10+ Years of Excellence
+      </div>
+      <div class="flex items-center justify-center gap-2 text-cream/90 text-sm">
+        <span class="text-gold text-lg">&#128106;</span> Family-Run Business
+      </div>
+      <div class="flex items-center justify-center gap-2 text-cream/90 text-sm">
+        <span class="text-gold text-lg">&#128205;</span> Paphos, Cyprus
+      </div>
+      <div class="flex items-center justify-center gap-2 text-cream/90 text-sm">
+        <span class="text-gold text-lg">&#11088;</span> 5-Star Reviewed
+      </div>
+    </div>
+  </section>
+
+  <!-- Welcome -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="fade-in">
+          <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-6">Welcome to Green Planet Gardening</h2>
+          <p class="text-charcoal/80 leading-relaxed mb-4">
+            Welcome to Green Planet Gardening, a Cypriot company where nature turns into art and gardening becomes an emotion. We are three brothers, united by a shared passion for earth, beauty, and perfection. We believe that every garden tells a unique story, a reflection of the soul of those who live it.
+          </p>
+          <p class="text-charcoal/80 leading-relaxed mb-6">
+            For more than a decade, we have been creating luxury gardens and bespoke green spaces for private villas, resorts, and high-end residences across Cyprus. Every project begins with listening — grows through craftsmanship — and comes to life through a balance of art, precision, and emotion.
+          </p>
+          <a href="/about" class="text-gold uppercase text-sm tracking-wider hover:text-amber-600 transition-colors font-medium inline-flex items-center gap-2">
+            Learn About Us
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="fade-in">
+          <img src="/images/projects/d50_6994.jpg" alt="Luxury Mediterranean landscaping by Green Planet Gardening Cyprus with natural climbing plants and elegant architectural greenery." class="rounded-lg shadow-lg w-full" loading="lazy" width="800" height="600" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="py-20 bg-sand/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1 fade-in">
+          <img src="/images/projects/d50_6975.jpg" alt="Luxury garden pathway by Green Planet Gardening Cyprus featuring premium stone design, structured greenery and elegant Mediterranean outdoor architecture." class="rounded-lg shadow-lg w-full" loading="lazy" width="800" height="600" />
+        </div>
+        <div class="order-1 lg:order-2 fade-in">
+          <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-6">Our Philosophy — Creating Emotions That Last Over Time</h2>
+          <p class="text-charcoal/80 leading-relaxed mb-4">
+            Green Planet Gardening is not just a landscaping company, it is a family. Every day, we work with the same passion that brought us together, guided by the belief that quality is not a goal — it's a way of life.
+          </p>
+          <p class="text-charcoal/80 leading-relaxed">
+            We believe in perfection through detail, in the authentic beauty of nature, and in trust as our most valuable promise. In Cyprus's high-end landscaping world, we offer the same level of expertise and craftsmanship as the five major groups, but with a soul that's more personal, more human, and truly our own.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quality Trust Professionalism -->
+  <section class="py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-6">Quality — Trust — Professionalism</h2>
+      <p class="text-charcoal/80 leading-relaxed mb-4">
+        Every client who chooses us knows that our work grows from three solid roots: quality, trust, and professionalism. We never promise more than we can do, yet we always deliver more than expected.
+      </p>
+      <p class="text-charcoal/80 leading-relaxed">
+        We collaborate with architects, builders, and designers to create tailor-made green spaces where every plant, every stone, and every light finds its perfect place. Our signature is invisible precision — the kind of detail that isn't seen at first glance, but defines perfection over time.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="py-20 bg-sand/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 fade-in">
+        <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-4">Our Services and Expertise</h2>
+        <p class="text-charcoal/70 max-w-2xl mx-auto">We offer a complete range of landscape design and green care services:</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in">
+        {services.map((s: any) => (
+          <ServiceCard image={s.image} alt={s.alt} title={s.title} description={s.description} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Showcase -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 fade-in">
+        <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-4">Exclusive Projects — Our Signature in Nature</h2>
+        <p class="text-charcoal/70 max-w-2xl mx-auto">
+          Every garden signed by Green Planet is a story of harmony and perfection. We take on only a few projects each year, because every creation deserves time, attention, and soul.
+        </p>
+      </div>
+      <div class="fade-in">
+        <Gallery images={showcaseImages} />
+      </div>
+      <div class="text-center mt-10">
+        <a href="/gallery" class="text-gold uppercase text-sm tracking-wider hover:text-amber-600 transition-colors font-medium inline-flex items-center gap-2">
+          See All Projects
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <Testimonials />
+
+  <!-- Why Choose Us -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-forest text-center mb-8 fade-in">Why Choose Green Planet Gardening</h2>
+      <blockquote class="text-center text-xl sm:text-2xl font-playfair italic text-charcoal/70 max-w-3xl mx-auto mb-12 fade-in">
+        "Because a garden is not just about aesthetics — it's about emotion, balance, and trust. And we build all of that with the excellence of greatness and the care of a family."
+      </blockquote>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 fade-in">
+        <div class="text-center p-6">
+          <div class="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+          </div>
+          <h3 class="font-playfair text-forest text-lg mb-2">Boutique Approach</h3>
+          <p class="text-warm-gray text-sm">We take on only a few projects each year. Every garden gets our full attention.</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          </div>
+          <h3 class="font-playfair text-forest text-lg mb-2">Family Values</h3>
+          <p class="text-warm-gray text-sm">Three brothers, one shared passion. We treat your garden like our own.</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="font-playfair text-forest text-lg mb-2">Mediterranean Expertise</h3>
+          <p class="text-warm-gray text-sm">10+ years mastering Cyprus's unique climate, soil, and plant life.</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          </div>
+          <h3 class="font-playfair text-forest text-lg mb-2">Invisible Perfection</h3>
+          <p class="text-warm-gray text-sm">The details you don't see at first glance define perfection over time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-forest">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-cream mb-6">Your Garden Begins with a Conversation</h2>
+      <p class="text-cream/80 leading-relaxed mb-8">
+        Ready to transform your outdoor space into a living masterpiece? Whether you're planning a complete garden transformation, need professional maintenance, or want expert advice — we're here to help.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contact" class="bg-gold text-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-amber-600 transition-colors rounded font-medium">
+          Request a Consultation
+        </a>
+        <a href="https://api.whatsapp.com/send?phone=35796541879" target="_blank" rel="noopener noreferrer" class="border border-cream/30 text-cream px-8 py-4 text-sm uppercase tracking-wider hover:bg-cream/10 transition-colors rounded font-medium">
+          WhatsApp Us
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

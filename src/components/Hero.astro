@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  tagline?: string;
+  ctaText?: string;
+  ctaLink?: string;
+  backgroundImage: string;
+}
+
+const { title, subtitle, tagline, ctaText, ctaLink, backgroundImage } = Astro.props;
+---
+
+<section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+  <img
+    src={backgroundImage}
+    alt=""
+    class="absolute inset-0 w-full h-full object-cover"
+    loading="eager"
+  />
+  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10"></div>
+
+  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+    {tagline && (
+      <p class="text-cream/80 text-sm uppercase tracking-[0.2em] mb-4 font-inter">{tagline}</p>
+    )}
+    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair text-cream font-semibold leading-tight mb-6">
+      {title}
+    </h1>
+    {subtitle && (
+      <p class="text-cream/90 text-lg sm:text-xl max-w-2xl mx-auto mb-8 font-light leading-relaxed">
+        {subtitle}
+      </p>
+    )}
+    {ctaText && ctaLink && (
+      <a
+        href={ctaLink}
+        class="inline-block bg-gold text-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-amber-600 transition-colors rounded font-medium"
+      >
+        {ctaText}
+      </a>
+    )}
+  </div>
+</section>

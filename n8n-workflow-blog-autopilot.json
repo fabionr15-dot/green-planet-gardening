@@ -1,0 +1,439 @@
+{
+  "name": "[Green Planet] Blog Autopilot",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "daysInterval": 10,
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "trigger-cron",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.github.com/repos/{{ $env.GITHUB_REPO_OWNER }}/{{ $env.GITHUB_REPO_NAME }}/contents/src/content/blog",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "fetch-existing-posts",
+      "name": "Fetch Existing Posts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "github-cred",
+          "name": "GitHub Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const files = $input.first().json;\nconst existingSlugs = Array.isArray(files)\n  ? files.filter(f => f.name.endsWith('.md')).map(f => f.name.replace('.md', ''))\n  : [];\nreturn [{ json: { existingSlugs, existingTopics: existingSlugs.map(s => s.replace(/-/g, ' ')) } }];"
+      },
+      "id": "parse-existing",
+      "name": "Parse Existing Posts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-6-20250514",
+        "messages": {
+          "values": [
+            {
+              "content": "You are the content strategist for Green Planet Gardening, a luxury landscaping company based in Paphos, Cyprus (greenplanetgardening.eu). Select a new blog topic.\n\nToday's date: {{ $now.format('yyyy-MM-dd') }}\n\nALREADY PUBLISHED — do NOT repeat these topics:\n{{ $json.existingTopics.join('\\n') }}\n\nTOPIC STRATEGY:\n- Focus on Cyprus-specific gardening, landscaping, and outdoor living\n- Consider the current season in Cyprus (Mediterranean: hot dry summers Apr-Oct, mild wet winters Nov-Mar)\n- Target long-tail keywords with local intent (e.g. \"best trees for Cyprus gardens\" not just \"best trees\")\n- Topics should answer specific questions people ask Google AND AI assistants about gardening in Cyprus/Mediterranean\n- Aim for topics that establish Green Planet as THE authority for luxury landscaping in Cyprus\n- Mix content types: how-to guides, seasonal tips, plant spotlights, design inspiration, sustainability\n\nSEO + AI OPTIMIZATION:\n- Choose a primary keyword phrase (3-5 words) with clear search intent\n- Include 3 search terms that real users would type or ask an AI\n- Title must be compelling, 50-60 characters, include the primary keyword\n- Think about what questions an AI like ChatGPT or Perplexity would cite this article for\n\nOutput ONLY a valid JSON object (no markdown, no code blocks):\n{\n  \"topic\": \"The blog post topic\",\n  \"targetKeyword\": \"primary SEO keyword phrase (3-5 words)\",\n  \"secondaryKeywords\": [\"secondary keyword 1\", \"secondary keyword 2\"],\n  \"suggestedTitle\": \"SEO-optimised blog title (50-60 chars)\",\n  \"slug\": \"url-friendly-slug\",\n  \"category\": \"Garden Guide | Plant Guide | Design Inspiration | Project Spotlight | Sustainability\",\n  \"season\": \"spring | summer | autumn | winter | year-round\",\n  \"searchTerms\": [\"image search term 1\", \"image search term 2\", \"image search term 3\"],\n  \"faqQuestions\": [\"Question people ask about this topic?\", \"Another common question?\"]\n}"
+            }
+          ]
+        },
+        "options": {
+          "maxTokens": 700,
+          "temperature": 0.8
+        }
+      },
+      "id": "topic-selection",
+      "name": "Topic Selection (Claude)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [660, 0],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-cred",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json;\nlet topicData;\ntry {\n  const text = response.message?.content || response.text || JSON.stringify(response);\n  const jsonMatch = text.match(/\\{[\\s\\S]*\\}/);\n  topicData = JSON.parse(jsonMatch ? jsonMatch[0] : text);\n} catch (e) {\n  topicData = {\n    topic: 'Mediterranean Garden Design Tips',\n    targetKeyword: 'mediterranean garden design cyprus',\n    secondaryKeywords: ['cyprus landscaping ideas', 'luxury garden paphos'],\n    suggestedTitle: 'Mediterranean Garden Design Tips for Cyprus Homes',\n    slug: 'mediterranean-garden-design-tips-cyprus',\n    category: 'Design Inspiration',\n    season: 'year-round',\n    searchTerms: ['mediterranean garden', 'cyprus landscaping', 'garden design'],\n    faqQuestions: ['How to design a Mediterranean garden?', 'What plants grow best in Cyprus?']\n  };\n}\nreturn [{ json: topicData }];"
+      },
+      "id": "parse-topic",
+      "name": "Parse Topic JSON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [880, 0]
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-6-20250514",
+        "messages": {
+          "values": [
+            {
+              "content": "You are a senior content writer for Green Planet Gardening (greenplanetgardening.eu), a luxury landscaping company in Paphos, Cyprus, run by a family with 30 years of Mediterranean gardening experience.\n\nWrite a blog post based on the provided topic.\n\nTopic: {{ $json.topic }}\nTarget Keyword: {{ $json.targetKeyword }}\nSecondary Keywords: {{ $json.secondaryKeywords ? $json.secondaryKeywords.join(', ') : '' }}\nSuggested Title: {{ $json.suggestedTitle }}\nCategory: {{ $json.category }}\nFAQ Questions: {{ $json.faqQuestions ? $json.faqQuestions.join(' | ') : '' }}\n\nBRAND VOICE:\n- Sophisticated yet warm and approachable\n- Knowledgeable like an experienced garden architect speaking personally\n- Never salesy, always genuinely helpful with actionable advice\n- Cyprus-specific — reference local climate zones, soil (limestone/alkaline), specific plants that thrive here, water scarcity challenges\n- Occasionally mention \"our team\" or \"we've found in our projects\" for authenticity\n\nSEO OPTIMIZATION:\n- Target keyword in: title (frontmatter), first paragraph, one H2 heading, meta description, and 2-3 times naturally in body\n- Secondary keywords woven in naturally, each appearing 1-2 times\n- Meta description (frontmatter \"description\"): exactly 145-155 characters, compelling, includes target keyword\n- Use H2 for main sections, H3 for subsections — clear hierarchy\n- Include one bullet/numbered list per major section for featured snippets\n- Write a \"Frequently Asked Questions\" H2 section at the end with 3-4 Q&As using H3 for each question — these should be real questions people search for\n\nLLM/AI OPTIMIZATION (so AI assistants cite this article):\n- Start each major section with a clear, direct 1-2 sentence answer before elaborating\n- Use specific numbers, measurements, and data points (e.g. \"water 2-3 times per week\" not \"water regularly\")\n- Include definitive statements that AI can extract as facts (e.g. \"Bougainvillea thrives in Cyprus's USDA zone 10b climate\")\n- Name specific plant species, products, or techniques — not vague generalities\n- Structure content so each H2 section can stand alone as a complete answer to a question\n\nLAYOUT RULES (CRITICAL — the blog template displays the title and hero image separately):\n- The frontmatter title IS the page title — it appears above the hero image, NOT as an overlay\n- Do NOT start the markdown body with the title again or with an image — the template handles both\n- Start the body text directly with the opening paragraph\n- You may include 1-2 additional images in the body using markdown syntax: ![alt text](/images/blog/descriptive-name.jpg)\n- Keep image alt texts descriptive and keyword-rich\n\nSTRUCTURE:\n- Frontmatter fields: title, description (145-155 chars), pubDate ({{ $now.format('yyyy-MM-dd') }}), author (\"Green Planet Gardening\"), image (\"/images/blog/{{ $json.slug }}.jpg\"), imageAlt (descriptive, keyword-rich), tags (5-7 relevant tags as array), category\n- 1000-1800 words total\n- Opening paragraph: hook + target keyword + what the reader will learn\n- 3-5 H2 sections with substantive content\n- FAQ section (H2) with 3-4 questions as H3s — answer each in 2-3 sentences\n- Final CTA paragraph: naturally link to [our services](/services) and [get in touch](/contact)\n- At least 3 internal links total: /services, /contact, /gallery, /plant-ai, or /about\n- Use bold for key takeaways within paragraphs\n\nOUTPUT: Only the complete Markdown file content starting with ---, nothing else. No code block wrappers."
+            }
+          ]
+        },
+        "options": {
+          "maxTokens": 5000,
+          "temperature": 0.6
+        }
+      },
+      "id": "content-writing",
+      "name": "Write Blog Post (Claude)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [1100, 0],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-cred",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const topicData = $('Parse Topic JSON').first().json;\nconst response = $input.first().json;\nlet markdown = response.message?.content || response.text || '';\n\n// Clean up any code block wrappers\nmarkdown = markdown.replace(/^```(?:markdown)?\\n?/, '').replace(/\\n?```$/, '').trim();\n\n// Ensure it starts with frontmatter\nif (!markdown.startsWith('---')) {\n  markdown = '---\\n' + markdown;\n}\n\nreturn [{\n  json: {\n    ...topicData,\n    markdown: markdown,\n    fileName: `${topicData.slug}.md`,\n    filePath: `src/content/blog/${topicData.slug}.md`\n  }\n}];"
+      },
+      "id": "prepare-content",
+      "name": "Prepare Blog Content",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1320, 0]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.unsplash.com/search/photos?query={{ encodeURIComponent($json.searchTerms[0] + ' garden') }}&orientation=landscape&per_page=5",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "unsplash-search",
+      "name": "Search Unsplash",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1540, -150],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "unsplash-cred",
+          "name": "Unsplash API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.pexels.com/v1/search?query={{ encodeURIComponent($json.searchTerms[0] + ' garden') }}&orientation=landscape&per_page=5",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "pexels-search",
+      "name": "Search Pexels",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1540, 150],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "pexels-cred",
+          "name": "Pexels API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const topicData = $('Prepare Blog Content').first().json;\nlet imageUrl = '';\nlet imageCredit = '';\n\n// Try Unsplash first — pick the highest quality landscape image\ntry {\n  const unsplash = $('Search Unsplash').first().json;\n  if (unsplash.results && unsplash.results.length > 0) {\n    // Prefer images with good dimensions for hero (wide landscape)\n    const best = unsplash.results.find(r => r.width > r.height * 1.4) || unsplash.results[0];\n    imageUrl = best.urls.regular;\n    imageCredit = `Photo by ${best.user.name} on Unsplash`;\n  }\n} catch (e) {}\n\n// Fallback to Pexels\nif (!imageUrl) {\n  try {\n    const pexels = $('Search Pexels').first().json;\n    if (pexels.photos && pexels.photos.length > 0) {\n      const best = pexels.photos.find(p => p.width > p.height * 1.4) || pexels.photos[0];\n      imageUrl = best.src.large2x || best.src.large;\n      imageCredit = `Photo by ${best.photographer} on Pexels`;\n    }\n  } catch (e) {}\n}\n\nif (!imageUrl) {\n  imageUrl = '';\n  imageCredit = 'Green Planet Gardening';\n}\n\nreturn [{\n  json: {\n    ...topicData,\n    imageUrl,\n    imageCredit\n  }\n}];"
+      },
+      "id": "select-image",
+      "name": "Select Best Image",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1760, 0]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.imageUrl }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "download-image",
+      "name": "Download Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1980, 0]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://api.github.com/repos/{{ $env.GITHUB_REPO_OWNER }}/{{ $env.GITHUB_REPO_NAME }}/contents/public/images/blog/{{ $('Prepare Blog Content').first().json.slug }}.jpg",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"message\": \"blog: add image for {{ $('Prepare Blog Content').first().json.suggestedTitle }}\",\n  \"content\": \"{{ $binary.data.toBase64() }}\"\n}",
+        "options": {}
+      },
+      "id": "commit-image",
+      "name": "Commit Image to GitHub",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2200, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "github-cred",
+          "name": "GitHub Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://api.github.com/repos/{{ $env.GITHUB_REPO_OWNER }}/{{ $env.GITHUB_REPO_NAME }}/contents/{{ $('Prepare Blog Content').first().json.filePath }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"message\": \"blog: add {{ $('Prepare Blog Content').first().json.suggestedTitle }}\",\n  \"content\": \"{{ Buffer.from($('Prepare Blog Content').first().json.markdown).toString('base64') }}\"\n}",
+        "options": {}
+      },
+      "id": "commit-markdown",
+      "name": "Commit Markdown to GitHub",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2420, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "github-cred",
+          "name": "GitHub Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "status",
+              "name": "status",
+              "value": "=Blog post '{{ $('Prepare Blog Content').first().json.suggestedTitle }}' published successfully!",
+              "type": "string"
+            },
+            {
+              "id": "slug",
+              "name": "slug",
+              "value": "={{ $('Prepare Blog Content').first().json.slug }}",
+              "type": "string"
+            },
+            {
+              "id": "publishedAt",
+              "name": "publishedAt",
+              "value": "={{ $now.format('yyyy-MM-dd HH:mm') }}",
+              "type": "string"
+            },
+            {
+              "id": "imageCredit",
+              "name": "imageCredit",
+              "value": "={{ $('Select Best Image').first().json.imageCredit }}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "success-output",
+      "name": "Success Output",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [2640, 0]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch Existing Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Existing Posts": {
+      "main": [
+        [
+          {
+            "node": "Parse Existing Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Existing Posts": {
+      "main": [
+        [
+          {
+            "node": "Topic Selection (Claude)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Topic Selection (Claude)": {
+      "main": [
+        [
+          {
+            "node": "Parse Topic JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Topic JSON": {
+      "main": [
+        [
+          {
+            "node": "Write Blog Post (Claude)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Blog Post (Claude)": {
+      "main": [
+        [
+          {
+            "node": "Prepare Blog Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Blog Content": {
+      "main": [
+        [
+          {
+            "node": "Search Unsplash",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Search Pexels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Unsplash": {
+      "main": [
+        [
+          {
+            "node": "Select Best Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Pexels": {
+      "main": [
+        [
+          {
+            "node": "Select Best Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Best Image": {
+      "main": [
+        [
+          {
+            "node": "Download Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Image": {
+      "main": [
+        [
+          {
+            "node": "Commit Image to GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Commit Image to GitHub": {
+      "main": [
+        [
+          {
+            "node": "Commit Markdown to GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Commit Markdown to GitHub": {
+      "main": [
+        [
+          {
+            "node": "Success Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "green-planet"
+    },
+    {
+      "name": "blog-autopilot"
+    }
+  ]
+}

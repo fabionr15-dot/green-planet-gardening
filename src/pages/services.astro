@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import services from '../data/services.json';
+---
+
+<BaseLayout
+  title="Luxury Landscaping Services Cyprus | Garden Design, Construction & Maintenance"
+  description="Complete luxury landscaping services in Cyprus: bespoke garden design, professional construction, ongoing maintenance, and expert consulting for villas, resorts & residences."
+>
+  <Hero
+    title="Our Services & Expertise"
+    subtitle="A complete range of luxury landscape design and green care services, tailored to the unique beauty of Cyprus."
+    backgroundImage="/images/hero/hero-services.jpg"
+  />
+
+  <!-- Services -->
+  {services.map((service: any, i: number) => (
+    <section class:list={['py-20', i % 2 === 1 ? 'bg-sand/20' : '']}>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class:list={['grid grid-cols-1 lg:grid-cols-2 gap-12 items-center', i % 2 === 1 ? 'lg:flex-row-reverse' : '']}>
+          <div class:list={[i % 2 === 1 ? 'lg:order-2' : '', 'fade-in']}>
+            <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-6">{service.title}</h2>
+            <p class="text-charcoal/80 leading-relaxed mb-6">{service.description}</p>
+            <h3 class="text-lg font-playfair text-forest mb-4">What's Included:</h3>
+            <ul class="space-y-2">
+              {service.features.map((f: string) => (
+                <li class="flex items-start gap-3 text-sm text-charcoal/70">
+                  <svg class="w-4 h-4 text-gold shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class:list={[i % 2 === 1 ? 'lg:order-1' : '', 'fade-in']}>
+            <img src={service.image} alt={service.alt} class="rounded-lg shadow-lg w-full" loading="lazy" width="800" height="600" />
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Process -->
+  <section class="py-20 bg-forest">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-cream mb-12 text-center">From Vision to Reality</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[
+          { step: '1', title: 'Consultation', text: 'We meet you at your property, listen to your vision, and assess the site.' },
+          { step: '2', title: 'Concept', text: 'We develop initial design concepts and present them for your feedback.' },
+          { step: '3', title: 'Design', text: 'The approved concept evolves into detailed plans with plant schedules, materials, and lighting.' },
+          { step: '4', title: 'Construction', text: 'Our team builds your garden with meticulous attention to every detail.' },
+          { step: '5', title: 'Handover', text: 'We walk you through your new garden, explaining care and seasonal rhythms.' },
+          { step: '6', title: 'Ongoing Care', text: 'Optional maintenance programmes keep your garden thriving year-round.' },
+        ].map(s => (
+          <div class="text-center">
+            <span class="inline-flex items-center justify-center w-12 h-12 rounded-full border-2 border-gold text-gold font-playfair text-lg mb-4">{s.step}</span>
+            <h3 class="font-playfair text-cream text-lg mb-2">{s.title}</h3>
+            <p class="text-cream/70 text-sm">{s.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-6">Let's Create Something Beautiful Together</h2>
+      <p class="text-charcoal/70 leading-relaxed mb-8">Every project starts with a conversation. Tell us about your space and your vision.</p>
+      <a href="/contact" class="inline-block bg-gold text-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-amber-600 transition-colors rounded font-medium">
+        Request a Consultation
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,27 @@
+{
+  "name": "green-planet-gardening",
+  "version": "1.0.0",
+  "description": "Green Planet Gardening — Luxury Landscaping Cyprus",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "audit": "npm audit --production",
+    "audit:fix": "npm audit fix"
+  },
+  "dependencies": {
+    "@astrojs/netlify": "^6.6.4",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.7.0",
+    "astro": "^5.18.0",
+    "jspdf": "^4.2.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "tailwindcss": "^4.2.1"
+  }
+}

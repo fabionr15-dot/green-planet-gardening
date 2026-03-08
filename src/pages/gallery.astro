@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Gallery from '../components/Gallery.astro';
+import galleryData from '../data/gallery.json';
+---
+
+<BaseLayout
+  title="Luxury Garden Projects Cyprus | Portfolio — Green Planet Gardening"
+  description="Explore our portfolio of luxury garden projects across Cyprus. From private villa gardens to resort landscapes — crafted with passion, precision, and Mediterranean expertise."
+  schemaType="ImageGallery"
+>
+  <!-- Hero -->
+  <section class="py-20 bg-forest">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-playfair text-cream mb-6">Our Projects</h1>
+      <p class="text-cream/80 leading-relaxed">
+        Every garden signed by Green Planet is a story of harmony and perfection. We take on only a few projects each year, because every creation deserves time, attention, and soul. Browse our portfolio to see the care and craftsmanship that defines our work.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Gallery images={galleryData} showFilters={true} />
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-sand/20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-6">Inspired by What You See?</h2>
+      <p class="text-charcoal/70 leading-relaxed mb-8">Every project in our portfolio started with a conversation. Let's start yours.</p>
+      <a href="/contact" class="inline-block bg-gold text-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-amber-600 transition-colors rounded font-medium">
+        Contact Us
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,45 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  date: Date;
+  category: string;
+  slug: string;
+}
+
+const { title, description, image, imageAlt, date, category, slug } = Astro.props;
+const formattedDate = new Date(date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const readTime = '5 min read';
+---
+
+<article class="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+  <a href={`/blog/${slug}`} class="block">
+    <div class="overflow-hidden aspect-[16/9]">
+      <img
+        src={image}
+        alt={imageAlt}
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        loading="lazy"
+        width="800"
+        height="450"
+      />
+    </div>
+    <div class="p-6">
+      <span class="inline-block bg-sage/10 text-sage text-xs uppercase tracking-wider px-3 py-1 rounded mb-3">
+        {category}
+      </span>
+      <h3 class="text-lg font-playfair text-forest group-hover:text-sage transition-colors mb-2 leading-tight">
+        {title}
+      </h3>
+      <p class="text-warm-gray text-sm leading-relaxed mb-4 line-clamp-2">
+        {description}
+      </p>
+      <div class="flex items-center justify-between text-xs text-warm-gray">
+        <time datetime={new Date(date).toISOString()}>{formattedDate}</time>
+        <span>{readTime}</span>
+      </div>
+    </div>
+  </a>
+</article>

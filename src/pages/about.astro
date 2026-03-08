@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<BaseLayout
+  title="About Green Planet Gardening | Three Brothers, One Passion — Luxury Gardens Cyprus"
+  description="Meet the three brothers behind Green Planet Gardening. A family-run luxury landscaping company in Paphos, Cyprus with 10+ years creating bespoke Mediterranean gardens."
+  schemaType="AboutPage"
+>
+  <Hero
+    title="Three Brothers. One Vision."
+    subtitle="A family united by earth, beauty, and the pursuit of perfection."
+    backgroundImage="/images/hero/hero-about.jpg"
+  />
+
+  <!-- Our Story -->
+  <section class="py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 fade-in">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-8 text-center">Our Story</h2>
+      <div class="prose prose-lg text-charcoal/80 leading-relaxed space-y-4">
+        <p>Green Planet Gardening was born from a simple yet profound idea — that a garden should be more than a collection of plants. It should be a living reflection of the soul of those who inhabit it.</p>
+        <p>We are three brothers who grew up with our hands in the earth, learning from our family that the greatest things in life are built with patience, passion, and care. When we founded Green Planet Gardening, we brought that philosophy with us: every garden we create is a personal commitment, a promise that grows with time.</p>
+        <p>For more than a decade, we have been designing, building, and nurturing luxury gardens across Cyprus — from private hilltop villas in Paphos to beachfront resorts in Limassol. Our clients come to us because they see something different in our work: a soul that larger companies cannot offer.</p>
+        <p>We are not the biggest landscaping company in Cyprus. We never wanted to be. What we wanted — and what we have built — is a reputation for being the best at what we do. Every project is handcrafted. Every detail is intentional. Every garden is a masterpiece we are proud to sign.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="py-20 bg-sand/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-12 text-center fade-in">What We Stand For</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {[
+          { title: 'Passion', text: "We don't just work in gardens — we live for them. Every morning, we wake up excited to create something beautiful. This passion is the foundation of everything we do." },
+          { title: 'Precision', text: "The difference between good and extraordinary lies in the details. We obsess over every stone placement, every plant arrangement, every shadow that falls across a pathway." },
+          { title: 'Trust', text: "We never promise more than we can deliver. But we always deliver more than expected. Our word is our contract, and our reputation is built on keeping it." },
+          { title: 'Timeless', text: "Trends come and go. We design gardens that transcend fashion — spaces that grow more beautiful with every passing year, becoming more themselves over time." },
+        ].map(v => (
+          <div class="bg-white p-8 rounded-lg fade-in">
+            <h3 class="text-xl font-playfair text-forest mb-3">{v.title}</h3>
+            <p class="text-warm-gray text-sm leading-relaxed">{v.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-12 text-center fade-in">Meet the Team</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {[
+          { name: 'Charalambos Knodaritis', role: 'Green Director & Landscape Architect', image: '/images/team/charalambos.jpg', text: 'The creative and strategic mind behind Green Planet with over a decade of hands-on experience. He personally meets every client, listens to their needs, dreams, and lifestyle, and translates them into projects with distinct identity.', quote: 'Every garden must have a soul, and that soul comes from the people who dream it.' },
+          { name: 'Marios Knodaritis', role: 'Agronomist & Project Manager', image: '/images/team/marios.jpg', text: 'The team\'s botanical conscience who places the right plant in the right spot, ensuring designs work in real climate and grow in harmony. Orchestrates procurement, phasing, and crews to turn drawings into stable, living ecosystems.', quote: 'Every plant has its own soul and its own place — the right plant in the right spot.' },
+          { name: 'Angelos Knodaritis', role: 'Garden Construction & Irrigation Specialist', image: '/images/team/angelos.jpg', text: 'Gives built form to the design — paths, levels, walls, water edges, and irrigation — executed with precision and durable materials.', quote: 'Every project made with love lasts for years.' },
+          { name: 'Fabio Fornaro', role: 'Strategic Business Consultant & Project Advisor', image: '/images/team/fabio.jpg', text: 'Brings entrepreneurial experience and the ability to turn vision into structured strategy. With 25 years in business development and strategic consulting, supports the Knodaritis brothers as a guide.', quote: 'True quality is never a cost — it\'s an investment that lasts over time.' },
+        ].map(member => (
+          <div class="text-center fade-in">
+            <div class="w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden bg-sage/20">
+              <img src={member.image} alt={member.name} class="w-full h-full object-cover" loading="lazy" width="192" height="192" />
+            </div>
+            <h3 class="text-xl font-playfair text-forest mb-1">{member.name}</h3>
+            <p class="text-gold text-xs uppercase tracking-wider mb-4">{member.role}</p>
+            <p class="text-warm-gray text-sm leading-relaxed mb-3">{member.text}</p>
+            <p class="text-sage italic text-xs">"{member.quote}"</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How We Work -->
+  <section class="py-20 bg-sand/20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-12 text-center fade-in">How We Work</h2>
+      <div class="space-y-8 fade-in">
+        {[
+          { step: '01', title: 'Listen', text: 'Every project begins with a conversation. We visit your property, understand your vision, study the land, the light, the soil, and the story you want your garden to tell.' },
+          { step: '02', title: 'Design', text: "We create a tailored landscape plan that balances your aesthetic desires with the realities of Cyprus's Mediterranean climate. Every plant, stone, and water feature is chosen with intention." },
+          { step: '03', title: 'Build', text: 'Our skilled team brings the design to life with meticulous craftsmanship. We use only premium materials and proven techniques, treating your property with the respect it deserves.' },
+          { step: '04', title: 'Nurture', text: "A garden is a living thing. We offer ongoing maintenance programmes to ensure your space grows more beautiful with every season, adapting to Cyprus's unique climate cycles." },
+        ].map(s => (
+          <div class="flex gap-6 items-start">
+            <span class="text-4xl font-playfair text-gold/30 font-bold shrink-0">{s.step}</span>
+            <div>
+              <h3 class="text-lg font-playfair text-forest mb-2">{s.title}</h3>
+              <p class="text-warm-gray text-sm leading-relaxed">{s.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-forest">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-cream mb-6">Ready to Start Your Garden Journey?</h2>
+      <p class="text-cream/80 leading-relaxed mb-8">Every great garden begins with a conversation. Tell us about your space, your vision, and your dreams — we'll take care of the rest.</p>
+      <a href="/contact" class="inline-block bg-gold text-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-amber-600 transition-colors rounded font-medium">
+        Get in Touch
+      </a>
+    </div>
+  </section>
+</BaseLayout>

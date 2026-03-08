@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const formattedDate = post.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+// Estimate reading time
+const words = post.body?.split(/\s+/).length || 0;
+const readingTime = Math.max(1, Math.ceil(words / 200));
+---
+
+<BaseLayout
+  title={`${post.data.title} — Green Planet Gardening`}
+  description={post.data.description}
+  image={post.data.image}
+  ogType="article"
+  schemaType="BlogPosting"
+  schemaData={{ title: post.data.title, description: post.data.description, image: post.data.image, pubDate: post.data.pubDate.toISOString() }}
+>
+  <article class="py-16 sm:py-20">
+    <!-- Title -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
+      <span class="inline-block bg-gold/90 text-white text-xs uppercase tracking-wider px-3 py-1.5 rounded-full mb-5">
+        {post.data.category}
+      </span>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-playfair text-forest leading-tight">
+        {post.data.title}
+      </h1>
+    </div>
+
+    <!-- Hero Image -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+      <div class="overflow-hidden rounded-2xl shadow-2xl">
+        <img
+          src={post.data.image}
+          alt={post.data.imageAlt}
+          class="w-full h-[300px] sm:h-[400px] lg:h-[480px] object-cover"
+          loading="eager"
+          width="1200"
+          height="480"
+        />
+      </div>
+    </div>
+
+    <!-- Meta bar -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+      <div class="flex items-center justify-between py-4 border-b border-sand">
+        <div class="flex items-center gap-3 text-warm-gray text-sm">
+          <time datetime={post.data.pubDate.toISOString()} class="font-medium">{formattedDate}</time>
+          <span class="w-1 h-1 rounded-full bg-sand"></span>
+          <span>{post.data.author}</span>
+        </div>
+        <span class="text-warm-gray text-sm">{readingTime} min read</span>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="blog-prose prose prose-lg max-w-none prose-headings:font-playfair prose-headings:text-forest prose-a:text-gold prose-a:no-underline hover:prose-a:underline prose-p:text-charcoal/80 prose-li:text-charcoal/80 prose-p:leading-relaxed">
+        <Content />
+      </div>
+
+      <!-- Tags -->
+      <div class="mt-14 pt-8 border-t border-sand">
+        <p class="text-xs uppercase tracking-wider text-warm-gray mb-3">Topics</p>
+        <div class="flex flex-wrap gap-2">
+          {post.data.tags.map((tag: string) => (
+            <span class="bg-sand/30 text-forest text-xs px-4 py-1.5 rounded-full border border-sand/50 hover:bg-sand/50 transition-colors">{tag}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-14 bg-gradient-to-br from-forest to-forest/90 rounded-2xl p-8 sm:p-10 text-center relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-40 h-40 bg-sage/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-32 h-32 bg-gold/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+        <div class="relative">
+          <h2 class="font-playfair text-cream text-2xl sm:text-3xl mb-3">Need Expert Garden Help?</h2>
+          <p class="text-cream/70 text-sm sm:text-base mb-8 max-w-lg mx-auto">Our team of Mediterranean garden specialists is here to bring your vision to life.</p>
+          <a href="/contact" class="inline-block bg-gold text-white px-8 py-3.5 text-sm uppercase tracking-wider hover:bg-amber-600 transition-colors rounded-full shadow-lg hover:shadow-xl">
+            Start Your Project
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
