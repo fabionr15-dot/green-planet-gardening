@@ -1,4 +1,4 @@
-const ALLOWED_ORIGINS = ['https://greenplanetgardening.eu', 'http://localhost:4321'];
+const ALLOWED_ORIGINS = ['https://greenplanetgardening.eu', 'http://localhost:4321', 'http://localhost:8888', 'http://localhost:4322', 'http://localhost:4323', 'http://localhost:4324'];
 
 export async function handler(event) {
   // CORS

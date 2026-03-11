@@ -7,6 +7,12 @@ import Hero from '../components/Hero.astro';
   title="About Green Planet Gardening | Three Brothers, One Passion — Luxury Gardens Cyprus"
   description="Meet the three brothers behind Green Planet Gardening. A family-run luxury landscaping company in Paphos, Cyprus with 10+ years creating bespoke Mediterranean gardens."
   schemaType="AboutPage"
+  faq={[
+    { question: "Who are the founders of Green Planet Gardening?", answer: "Green Planet Gardening was founded by three brothers — Charalambos, Marios, and Angelos Knodaritis — in Paphos, Cyprus. Together with strategic advisor Fabio Fornaro, they bring over 10 years of combined experience in luxury landscaping, horticulture, and garden construction." },
+    { question: "Where is Green Planet Gardening located?", answer: "Green Planet Gardening is based in Paphos, Cyprus, at Kerynias 5, Marathounta 8520. The company serves all regions of Cyprus including Limassol, Nicosia, Larnaca, and coastal resort areas." },
+    { question: "What makes Green Planet Gardening different from other landscaping companies in Cyprus?", answer: "Green Planet Gardening is a family-run boutique landscaping company that takes on a limited number of projects each year. This ensures every garden receives maximum personal attention, craftsmanship, and design quality — something larger companies cannot offer." },
+    { question: "Is Green Planet Gardening a registered company?", answer: "Yes. Green Planet Gardening operates as M.K. Green Planet Gardening and Landscaping Ltd, registered in Cyprus under company number HE402756 with the Cyprus Registrar of Companies." },
+  ]}
 >
   <Hero
     title="Three Brothers. One Vision."
@@ -21,7 +27,7 @@ import Hero from '../components/Hero.astro';
       <div class="prose prose-lg text-charcoal/80 leading-relaxed space-y-4">
         <p>Green Planet Gardening was born from a simple yet profound idea — that a garden should be more than a collection of plants. It should be a living reflection of the soul of those who inhabit it.</p>
         <p>We are three brothers who grew up with our hands in the earth, learning from our family that the greatest things in life are built with patience, passion, and care. When we founded Green Planet Gardening, we brought that philosophy with us: every garden we create is a personal commitment, a promise that grows with time.</p>
-        <p>For more than a decade, we have been designing, building, and nurturing luxury gardens across Cyprus — from private hilltop villas in Paphos to beachfront resorts in Limassol. Our clients come to us because they see something different in our work: a soul that larger companies cannot offer.</p>
+        <p>For more than a decade, we have been designing, building, and nurturing <a href="/gallery" class="text-gold hover:text-amber-600 transition-colors">luxury gardens across Cyprus</a> — from private hilltop villas in Paphos to beachfront resorts in Limassol. Our clients come to us because they see something different in our work: a soul that larger companies cannot offer.</p>
         <p>We are not the biggest landscaping company in Cyprus. We never wanted to be. What we wanted — and what we have built — is a reputation for being the best at what we do. Every project is handcrafted. Every detail is intentional. Every garden is a masterpiece we are proud to sign.</p>
       </div>
     </div>
@@ -60,7 +66,7 @@ import Hero from '../components/Hero.astro';
         ].map(member => (
           <div class="text-center fade-in">
             <div class="w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden bg-sage/20">
-              <img src={member.image} alt={member.name} class="w-full h-full object-cover" loading="lazy" width="192" height="192" />
+              <img src={member.image} alt={`${member.name}, ${member.role} at Green Planet Gardening Cyprus`} class="w-full h-full object-cover" loading="lazy" width="192" height="192" />
             </div>
             <h3 class="text-xl font-playfair text-forest mb-1">{member.name}</h3>
             <p class="text-gold text-xs uppercase tracking-wider mb-4">{member.role}</p>
@@ -91,6 +97,43 @@ import Hero from '../components/Hero.astro';
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-10 text-center">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        <details class="group border-b border-warm-gray/20 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
+            Who are the founders of Green Planet Gardening?
+            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="mt-4 text-charcoal/70 leading-relaxed">Green Planet Gardening was founded by three brothers — Charalambos, Marios, and Angelos Knodaritis — in Paphos, Cyprus. Together with strategic advisor Fabio Fornaro, they bring over 10 years of combined experience in luxury landscaping, horticulture, and garden construction.</p>
+        </details>
+        <details class="group border-b border-warm-gray/20 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
+            Where is Green Planet Gardening located?
+            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="mt-4 text-charcoal/70 leading-relaxed">Green Planet Gardening is based in Paphos, Cyprus, at Kerynias 5, Marathounta 8520. The company serves all regions of Cyprus including Limassol, Nicosia, Larnaca, and coastal resort areas.</p>
+        </details>
+        <details class="group border-b border-warm-gray/20 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
+            What makes Green Planet Gardening different from other landscaping companies in Cyprus?
+            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="mt-4 text-charcoal/70 leading-relaxed">Green Planet Gardening is a family-run boutique landscaping company that takes on a limited number of projects each year. This ensures every garden receives maximum personal attention, craftsmanship, and design quality — something larger companies cannot offer.</p>
+        </details>
+        <details class="group border-b border-warm-gray/20 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
+            Is Green Planet Gardening a registered company?
+            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="mt-4 text-charcoal/70 leading-relaxed">Yes. Green Planet Gardening operates as M.K. Green Planet Gardening and Landscaping Ltd, registered in Cyprus under company number HE402756 with the Cyprus Registrar of Companies.</p>
+        </details>
       </div>
     </div>
   </section>

@@ -1,10 +1,11 @@
 ---
 interface Props {
-  type?: 'LocalBusiness' | 'BlogPosting' | 'AboutPage' | 'ContactPage' | 'ImageGallery' | 'WebApplication';
+  type?: 'LocalBusiness' | 'BlogPosting' | 'AboutPage' | 'ContactPage' | 'ImageGallery' | 'WebApplication' | 'CollectionPage';
   data?: Record<string, any>;
+  faq?: Array<{ question: string; answer: string }>;
 }
 
-const { type = 'LocalBusiness', data = {} } = Astro.props;
+const { type = 'LocalBusiness', data = {}, faq } = Astro.props;
 
 const localBusiness = {
   "@context": "https://schema.org",
@@ -61,9 +62,37 @@ if (type === 'BlogPosting') {
       "logo": { "@type": "ImageObject", "url": "https://greenplanetgardening.eu/images/logo/green-planet-logo.png" }
     }
   };
+} else if (type === 'CollectionPage') {
+  schema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": data.title || "Blog",
+    "description": data.description,
+    "url": data.url || "https://greenplanetgardening.eu/blog",
+    "isPartOf": { "@type": "WebSite", "name": "Green Planet Gardening", "url": "https://greenplanetgardening.eu" }
+  };
 } else {
   schema = localBusiness;
 }
+
+const schemas = [schema];
+
+if (faq && faq.length > 0) {
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  });
+}
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+{schemas.map(s => (
+  <script type="application/ld+json" set:html={JSON.stringify(s)} />
+))}

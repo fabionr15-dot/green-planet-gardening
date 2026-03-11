@@ -9,7 +9,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "audit": "npm audit --production",
-    "audit:fix": "npm audit fix"
+    "audit:fix": "npm audit fix",
+    "seo-check": "node scripts/seo-check.mjs",
+    "build:check": "astro build && node scripts/seo-check.mjs"
   },
   "dependencies": {
     "@astrojs/netlify": "^6.6.4",

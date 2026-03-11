@@ -8,7 +8,9 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 
 <BaseLayout
   title="Garden Blog | Tips, Inspiration & Mediterranean Landscaping — Green Planet Gardening"
-  description="Expert gardening tips for Cyprus. Mediterranean landscaping inspiration, plant care guides, and design ideas from the luxury landscaping specialists at Green Planet Gardening."
+  description="Expert gardening tips for Cyprus. Mediterranean landscaping inspiration, plant care guides and design ideas from Green Planet Gardening."
+  schemaType="CollectionPage"
+  schemaData={{ title: "Green Planet Gardening Blog", description: "Expert gardening tips, Mediterranean landscaping inspiration, and plant care guides for Cyprus.", url: "https://greenplanetgardening.eu/blog" }}
 >
   <section class="py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

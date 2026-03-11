@@ -6,7 +6,14 @@ import services from '../data/services.json';
 
 <BaseLayout
   title="Luxury Landscaping Services Cyprus | Garden Design, Construction & Maintenance"
-  description="Complete luxury landscaping services in Cyprus: bespoke garden design, professional construction, ongoing maintenance, and expert consulting for villas, resorts & residences."
+  description="Luxury landscaping services in Cyprus: bespoke garden design, construction, maintenance & consulting for villas, resorts and residences in Paphos."
+  faq={[
+    { question: "What luxury landscaping services does Green Planet Gardening offer in Cyprus?", answer: "Green Planet Gardening offers three core services: luxury garden design and construction (including hardscaping, softscaping, lighting, and irrigation), professional maintenance and green management, and tailored consulting for architects and investors. All services are available across Paphos, Limassol, and the rest of Cyprus." },
+    { question: "How much does luxury landscaping cost in Cyprus?", answer: "Costs vary based on garden size, design complexity, and materials. Green Planet Gardening provides detailed quotations after an initial consultation and site visit. A 30% deposit is required to begin work, with the remaining balance due within 14 days of project completion." },
+    { question: "How long does a garden design and construction project take?", answer: "A typical luxury garden project takes 4 to 12 weeks from design approval to completion. The timeline depends on project scope, season, and material availability. Green Planet Gardening provides a detailed timeline during the quotation phase." },
+    { question: "Does Green Planet Gardening offer ongoing garden maintenance?", answer: "Yes. Green Planet Gardening provides professional maintenance programmes including scheduled lawn care, pruning, irrigation management, fertilisation, pest control, and seasonal planting — tailored to the Mediterranean climate of Cyprus." },
+    { question: "What areas of Cyprus does Green Planet Gardening serve?", answer: "Green Planet Gardening is based in Paphos and serves all regions of Cyprus, including Limassol, Nicosia, Larnaca, Ayia Napa, and mountain properties. The company specialises in Mediterranean and drought-resistant landscaping suited to the Cyprus climate." },
+  ]}
 >
   <Hero
     title="Our Services & Expertise"
@@ -59,6 +66,50 @@ import services from '../data/services.json';
             <p class="text-cream/70 text-sm">{s.text}</p>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 bg-sand/20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-10 text-center">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        <details class="group border-b border-warm-gray/20 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
+            What luxury landscaping services does Green Planet Gardening offer in Cyprus?
+            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="mt-4 text-charcoal/70 leading-relaxed">Green Planet Gardening offers three core services: luxury garden design and construction (including hardscaping, softscaping, lighting, and irrigation), professional maintenance and green management, and tailored consulting for architects and investors. All services are available across Paphos, Limassol, and the rest of Cyprus.</p>
+        </details>
+        <details class="group border-b border-warm-gray/20 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
+            How much does luxury landscaping cost in Cyprus?
+            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="mt-4 text-charcoal/70 leading-relaxed">Costs vary based on garden size, design complexity, and materials. Green Planet Gardening provides detailed quotations after an initial consultation and site visit. A 30% deposit is required to begin work, with the remaining balance due within 14 days of project completion.</p>
+        </details>
+        <details class="group border-b border-warm-gray/20 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
+            How long does a garden design and construction project take?
+            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="mt-4 text-charcoal/70 leading-relaxed">A typical luxury garden project takes 4 to 12 weeks from design approval to completion. The timeline depends on project scope, season, and material availability. Green Planet Gardening provides a detailed timeline during the quotation phase.</p>
+        </details>
+        <details class="group border-b border-warm-gray/20 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
+            Does Green Planet Gardening offer ongoing garden maintenance?
+            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="mt-4 text-charcoal/70 leading-relaxed">Yes. Green Planet Gardening provides professional maintenance programmes including scheduled lawn care, pruning, irrigation management, fertilisation, pest control, and seasonal planting — tailored to the Mediterranean climate of Cyprus.</p>
+        </details>
+        <details class="group border-b border-warm-gray/20 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
+            What areas of Cyprus does Green Planet Gardening serve?
+            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="mt-4 text-charcoal/70 leading-relaxed">Green Planet Gardening is based in Paphos and serves all regions of Cyprus, including Limassol, Nicosia, Larnaca, Ayia Napa, and mountain properties. The company specialises in Mediterranean and drought-resistant landscaping suited to the Cyprus climate.</p>
+        </details>
       </div>
     </div>
   </section>

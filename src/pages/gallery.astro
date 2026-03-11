@@ -6,7 +6,7 @@ import galleryData from '../data/gallery.json';
 
 <BaseLayout
   title="Luxury Garden Projects Cyprus | Portfolio — Green Planet Gardening"
-  description="Explore our portfolio of luxury garden projects across Cyprus. From private villa gardens to resort landscapes — crafted with passion, precision, and Mediterranean expertise."
+  description="Explore our portfolio of luxury garden projects across Cyprus. Private villa gardens, resort landscapes and terraces crafted with Mediterranean expertise."
   schemaType="ImageGallery"
 >
   <!-- Hero -->
@@ -29,10 +29,15 @@ import galleryData from '../data/gallery.json';
   <section class="py-20 bg-sand/20">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-6">Inspired by What You See?</h2>
-      <p class="text-charcoal/70 leading-relaxed mb-8">Every project in our portfolio started with a conversation. Let's start yours.</p>
-      <a href="/contact" class="inline-block bg-gold text-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-amber-600 transition-colors rounded font-medium">
-        Contact Us
-      </a>
+      <p class="text-charcoal/70 leading-relaxed mb-8">Every project in our portfolio started with a conversation. Explore our <a href="/services" class="text-gold hover:text-amber-600 transition-colors">full range of services</a> or get in touch to start yours.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contact" class="inline-block bg-gold text-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-amber-600 transition-colors rounded font-medium">
+          Contact Us
+        </a>
+        <a href="/services" class="inline-block border border-forest text-forest px-8 py-4 text-sm uppercase tracking-wider hover:bg-forest hover:text-cream transition-colors rounded font-medium">
+          View Services
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>

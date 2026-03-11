@@ -1,0 +1,337 @@
+{
+  "name": "[Green Planet] SEO Guardian",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "weeksInterval": 1,
+              "triggerAtDay": 1,
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "trigger-weekly",
+      "name": "Weekly Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://greenplanetgardening.eu/sitemap-0.xml",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "fetch-sitemap",
+      "name": "Fetch Sitemap",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const xml = $input.first().json.data || $input.first().json;\nconst text = typeof xml === 'string' ? xml : JSON.stringify(xml);\n\n// Extract URLs from sitemap XML\nconst urlRegex = /<loc>([^<]+)<\\/loc>/g;\nconst urls = [];\nlet match;\nwhile ((match = urlRegex.exec(text)) !== null) {\n  urls.push(match[1]);\n}\n\n// Filter out non-page URLs\nconst pageUrls = urls.filter(u => \n  !u.includes('sitemap') && \n  !u.endsWith('.xml') &&\n  !u.endsWith('.txt')\n);\n\nreturn pageUrls.map(url => ({ json: { url } }));"
+      },
+      "id": "parse-sitemap",
+      "name": "Extract URLs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "batchSize": 3,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "batch-urls",
+      "name": "Batch URLs",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [660, 0]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          },
+          "timeout": 15000
+        }
+      },
+      "id": "fetch-page",
+      "name": "Fetch Page HTML",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [880, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst results = [];\n\nfor (const item of items) {\n  const html = item.json.data || '';\n  const url = item.json.url || '';\n\n  // Extract title\n  const titleMatch = html.match(/<title>([^<]*)<\\/title>/);\n  const title = titleMatch ? titleMatch[1] : 'MISSING';\n\n  // Extract meta description\n  const descMatch = html.match(/<meta\\s+name=\"description\"\\s+content=\"([^\"]*)\"/);\n  const description = descMatch ? descMatch[1] : 'MISSING';\n\n  // Count H1 tags\n  const h1Matches = html.match(/<h1[\\s>]/g);\n  const h1Count = h1Matches ? h1Matches.length : 0;\n\n  // Extract H1 content\n  const h1ContentMatch = html.match(/<h1[^>]*>([^<]*)<\\/h1>/);\n  const h1Content = h1ContentMatch ? h1ContentMatch[1].trim() : 'MISSING';\n\n  // Check images without alt\n  const imgMatches = [...html.matchAll(/<img\\s[^>]*>/g)];\n  const imgsWithoutAlt = imgMatches.filter(m => !(/alt=\"[^\"]+\"/.test(m[0])));\n\n  // Check for schema.org\n  const hasSchema = html.includes('application/ld+json');\n\n  // Check for canonical\n  const hasCanonical = html.includes('rel=\"canonical\"');\n\n  // Check OG tags\n  const hasOgTitle = html.includes('property=\"og:title\"');\n  const hasOgDesc = html.includes('property=\"og:description\"');\n  const hasOgImage = html.includes('property=\"og:image\"');\n\n  // Check internal links\n  const internalLinks = [...html.matchAll(/href=\"(\\/[^\"]*)\"/g)].map(m => m[1]);\n  const uniqueInternalLinks = [...new Set(internalLinks)];\n\n  // Build issues list\n  const issues = [];\n  if (title === 'MISSING') issues.push('Missing <title> tag');\n  else if (title.length > 90) issues.push(`Title too long (${title.length} chars)`);\n  else if (title.length < 20) issues.push(`Title too short (${title.length} chars)`);\n\n  if (description === 'MISSING') issues.push('Missing meta description');\n  else if (description.length > 170) issues.push(`Meta description too long (${description.length} chars)`);\n  else if (description.length < 50) issues.push(`Meta description too short (${description.length} chars)`);\n\n  if (h1Count === 0) issues.push('Missing H1 tag');\n  else if (h1Count > 1) issues.push(`Multiple H1 tags (${h1Count})`);\n\n  if (imgsWithoutAlt.length > 0) issues.push(`${imgsWithoutAlt.length} image(s) without alt text`);\n  if (!hasSchema) issues.push('Missing Schema.org JSON-LD');\n  if (!hasCanonical) issues.push('Missing canonical URL');\n  if (!hasOgTitle) issues.push('Missing og:title');\n  if (!hasOgImage) issues.push('Missing og:image');\n  if (uniqueInternalLinks.length < 2) issues.push('Low internal linking (fewer than 2 internal links)');\n\n  results.push({\n    json: {\n      url,\n      title,\n      titleLength: title.length,\n      description: description.substring(0, 100) + (description.length > 100 ? '...' : ''),\n      descriptionLength: description.length,\n      h1: h1Content,\n      h1Count,\n      imagesTotal: imgMatches.length,\n      imagesWithoutAlt: imgsWithoutAlt.length,\n      hasSchema,\n      hasCanonical,\n      hasOgTitle,\n      hasOgDesc,\n      hasOgImage,\n      internalLinkCount: uniqueInternalLinks.length,\n      issues,\n      issueCount: issues.length,\n      status: issues.length === 0 ? 'PASS' : issues.length <= 2 ? 'WARN' : 'FAIL'\n    }\n  });\n}\n\nreturn results;"
+      },
+      "id": "analyze-seo",
+      "name": "Analyze SEO",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1100, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst pages = items.map(i => i.json);\nconst totalPages = pages.length;\nconst passCount = pages.filter(p => p.status === 'PASS').length;\nconst warnCount = pages.filter(p => p.status === 'WARN').length;\nconst failCount = pages.filter(p => p.status === 'FAIL').length;\n\n// Calculate score\nconst maxIssues = totalPages * 10; // 10 possible checks per page\nconst totalIssues = pages.reduce((sum, p) => sum + p.issueCount, 0);\nconst score = Math.round(((maxIssues - totalIssues) / maxIssues) * 100);\n\n// Collect all issues\nconst allIssues = pages\n  .filter(p => p.issues.length > 0)\n  .map(p => `\\n**${p.url}** (${p.status})\\n${p.issues.map(i => `  - ${i}`).join('\\n')}`)\n  .join('\\n');\n\n// Page summary table\nconst summary = pages.map(p => \n  `| ${p.url.replace('https://greenplanetgardening.eu', '')} | ${p.status} | ${p.titleLength} | ${p.descriptionLength} | ${p.h1Count} | ${p.imagesWithoutAlt}/${p.imagesTotal} |`\n).join('\\n');\n\nconst report = `# SEO Guardian Report\\n\\n**Date:** ${new Date().toISOString().split('T')[0]}\\n**Score:** ${score}/100\\n**Pages:** ${totalPages} total — ${passCount} pass, ${warnCount} warn, ${failCount} fail\\n\\n## Summary\\n\\n| Page | Status | Title Len | Desc Len | H1s | Imgs No Alt |\\n|------|--------|-----------|----------|-----|-------------|\\n${summary}\\n\\n## Issues Found\\n${allIssues || '\\nNo issues found! All pages pass SEO checks.'}\\n`;\n\nconst hasCriticalIssues = failCount > 0;\nconst hasAnyIssues = totalIssues > 0;\n\nreturn [{\n  json: {\n    report,\n    score,\n    totalPages,\n    passCount,\n    warnCount,\n    failCount,\n    totalIssues,\n    hasCriticalIssues,\n    hasAnyIssues,\n    pages\n  }\n}];"
+      },
+      "id": "generate-report",
+      "name": "Generate Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1320, 0]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://greenplanetgardening.eu&category=performance&category=seo&category=accessibility&strategy=mobile",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "pagespeed-check",
+      "name": "PageSpeed Check",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1320, 220]
+    },
+    {
+      "parameters": {
+        "jsCode": "const seoReport = $('Generate Report').first().json;\nconst psData = $input.first().json;\n\n// Extract Lighthouse scores\nconst categories = psData.lighthouseResult?.categories || {};\nconst performance = Math.round((categories.performance?.score || 0) * 100);\nconst seo = Math.round((categories.seo?.score || 0) * 100);\nconst accessibility = Math.round((categories.accessibility?.score || 0) * 100);\n\n// Core Web Vitals\nconst audits = psData.lighthouseResult?.audits || {};\nconst lcp = audits['largest-contentful-paint']?.displayValue || 'N/A';\nconst cls = audits['cumulative-layout-shift']?.displayValue || 'N/A';\nconst fid = audits['max-potential-fid']?.displayValue || 'N/A';\n\nconst fullReport = `${seoReport.report}\\n## Lighthouse Scores (Mobile)\\n\\n| Metric | Score |\\n|--------|-------|\\n| Performance | ${performance}/100 |\\n| SEO | ${seo}/100 |\\n| Accessibility | ${accessibility}/100 |\\n\\n## Core Web Vitals\\n\\n| Metric | Value |\\n|--------|-------|\\n| LCP (Largest Contentful Paint) | ${lcp} |\\n| CLS (Cumulative Layout Shift) | ${cls} |\\n| FID (Max Potential First Input Delay) | ${fid} |\\n`;\n\nreturn [{\n  json: {\n    ...seoReport,\n    report: fullReport,\n    lighthouse: { performance, seo, accessibility },\n    coreWebVitals: { lcp, cls, fid }\n  }\n}];"
+      },
+      "id": "merge-report",
+      "name": "Merge with PageSpeed",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1540, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-issues",
+              "leftValue": "={{ $json.hasCriticalIssues }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "check-critical",
+      "name": "Critical Issues?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1760, 0]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are an SEO expert for Green Planet Gardening (greenplanetgardening.eu), a luxury landscaping company in Paphos, Cyprus. The website is built with Astro 5 (static output).\\n\\nHere is the weekly SEO audit report:\\n\\n{{ $json.report }}\\n\\nBased on the issues found, generate specific code fixes. For each fix, provide:\\n1. The file path (relative to src/pages/)\\n2. The exact change needed\\n3. Priority (high/medium/low)\\n\\nFocus only on issues that can be fixed in the Astro source code (title tags, meta descriptions, alt text, heading structure, internal links). Do NOT suggest changes for things that are fine.\\n\\nIf there are no critical issues, just confirm the site is healthy and suggest any minor improvements.\\n\\nFormat your response as a structured JSON array of fixes: [{\\\"file\\\": \\\"...\\\", \\\"issue\\\": \\\"...\\\", \\\"fix\\\": \\\"...\\\", \\\"priority\\\": \\\"...\\\"}]\\nIf no fixes needed, return an empty array: []\"\n    }\n  ]\n}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "claude-fix-suggestions",
+      "name": "Claude: Suggest Fixes",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1980, -100],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "anthropic-cred",
+          "name": "Anthropic API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const report = $('Merge with PageSpeed').first().json;\nconst claudeResponse = $input.first().json;\n\n// Parse Claude's fix suggestions\nlet fixes = [];\ntry {\n  const content = claudeResponse.content?.[0]?.text || '';\n  const jsonMatch = content.match(/\\[[\\s\\S]*\\]/);\n  if (jsonMatch) {\n    fixes = JSON.parse(jsonMatch[0]);\n  }\n} catch (e) {\n  fixes = [];\n}\n\nconst hasFixableIssues = fixes.length > 0;\n\n// Create GitHub issue body\nconst issueBody = `## Weekly SEO Guardian Report\\n\\n**Score:** ${report.score}/100\\n**Lighthouse:** Performance ${report.lighthouse?.performance || 'N/A'}/100 | SEO ${report.lighthouse?.seo || 'N/A'}/100 | Accessibility ${report.lighthouse?.accessibility || 'N/A'}/100\\n\\n### Pages: ${report.passCount} pass, ${report.warnCount} warn, ${report.failCount} fail\\n\\n${fixes.length > 0 ? '### Suggested Fixes\\n\\n' + fixes.map((f, i) => `${i + 1}. **[${f.priority}]** \\`${f.file}\\`: ${f.issue}\\n   Fix: ${f.fix}`).join('\\n\\n') : '### No fixes needed — site is healthy!'}\\n\\n---\\n*Auto-generated by [Green Planet] SEO Guardian on ${new Date().toISOString().split('T')[0]}*`;\n\nreturn [{\n  json: {\n    ...report,\n    fixes,\n    hasFixableIssues,\n    issueTitle: `[SEO Guardian] Weekly Report — Score: ${report.score}/100 (${new Date().toISOString().split('T')[0]})`,\n    issueBody\n  }\n}];"
+      },
+      "id": "prepare-github-issue",
+      "name": "Prepare GitHub Issue",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2200, -100]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.github.com/repos/{{ $env.GITHUB_REPO_OWNER }}/{{ $env.GITHUB_REPO_NAME }}/issues",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"title\": {{ JSON.stringify($json.issueTitle) }},\n  \"body\": {{ JSON.stringify($json.issueBody) }},\n  \"labels\": [\"seo\", \"automated\"]\n}",
+        "options": {}
+      },
+      "id": "create-github-issue",
+      "name": "Create GitHub Issue",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2420, -100],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "github-cred",
+          "name": "GitHub Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const report = $('Merge with PageSpeed').first().json;\n\nreturn [{\n  json: {\n    status: 'healthy',\n    score: report.score,\n    message: `SEO Guardian: All pages healthy. Score: ${report.score}/100. Lighthouse: Perf ${report.lighthouse?.performance || 'N/A'}, SEO ${report.lighthouse?.seo || 'N/A'}, A11y ${report.lighthouse?.accessibility || 'N/A'}.`,\n    report: report.report\n  }\n}];"
+      },
+      "id": "all-good",
+      "name": "All Good — Log",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1980, 100]
+    }
+  ],
+  "connections": {
+    "Weekly Schedule": {
+      "main": [
+        [
+          { "node": "Fetch Sitemap", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Fetch Sitemap": {
+      "main": [
+        [
+          { "node": "Extract URLs", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Extract URLs": {
+      "main": [
+        [
+          { "node": "Batch URLs", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Batch URLs": {
+      "main": [
+        [
+          { "node": "Fetch Page HTML", "type": "main", "index": 0 }
+        ],
+        [
+          { "node": "Generate Report", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Fetch Page HTML": {
+      "main": [
+        [
+          { "node": "Analyze SEO", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Analyze SEO": {
+      "main": [
+        [
+          { "node": "Batch URLs", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Generate Report": {
+      "main": [
+        [
+          { "node": "PageSpeed Check", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "PageSpeed Check": {
+      "main": [
+        [
+          { "node": "Merge with PageSpeed", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Merge with PageSpeed": {
+      "main": [
+        [
+          { "node": "Critical Issues?", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Critical Issues?": {
+      "main": [
+        [
+          { "node": "Claude: Suggest Fixes", "type": "main", "index": 0 }
+        ],
+        [
+          { "node": "All Good — Log", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Claude: Suggest Fixes": {
+      "main": [
+        [
+          { "node": "Prepare GitHub Issue", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Prepare GitHub Issue": {
+      "main": [
+        [
+          { "node": "Create GitHub Issue", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    { "name": "green-planet" },
+    { "name": "seo-guardian" }
+  ]
+}

@@ -19,7 +19,7 @@ Green Planet Gardening — luxury landscaping company website for M.K. Green Pla
 
 **React Island:** `PlantAI.jsx` is the only React component, loaded with `client:load` on `/plant-ai`. It sends base64 images to the Netlify Function at `/.netlify/functions/identify-plant`, which calls PlantNet API for identification then Claude API for a Cyprus-specific care guide.
 
-**Blog system:** Content Collections in `src/content/blog/` with Zod schema in `src/content/config.ts`. Blog posts are Markdown with frontmatter (title, description, pubDate, author, image, imageAlt, tags, category). Dynamic routes via `src/pages/blog/[...slug].astro`.
+**Blog system:** Content Collections in `src/content/blog/` with Zod schema in `src/content/config.ts`. Blog posts are Markdown with frontmatter (title, description, pubDate, author, image, imageAlt, tags, category). Dynamic routes via `src/pages/blog/[...slug].astro`. Blog layout: title + category badge displayed above the hero image (separate, not overlaid). Blog markdown must NOT contain inline images (`![...]`) — only the frontmatter hero image is rendered by the template.
 
 **Data files:** Static JSON in `src/data/` for navigation, services, testimonials, and gallery items — imported directly in page components.
 
@@ -35,7 +35,9 @@ Stored in `../api-keys/.env.example` (outside repo). For Netlify deployment, set
 - Instance: `https://n8n.srv1125865.hstgr.cloud/`
 - Workflow: "[Green Planet] Blog Autopilot" (ID: 6ggSdbYzqAKTXPak), runs every 10 days
 - Tags: `green-planet`, `blog-autopilot`
-- Flow: Schedule -> Claude topic selection -> Claude content writing -> Unsplash/Pexels image search -> GitHub commit (image + markdown) -> Netlify auto-rebuild
+- GitHub repo: `fabionr15-dot/green-planet-gardening` (main branch)
+- Flow: Schedule -> Fetch existing posts (GitHub API, avoids duplicates) -> Claude topic selection -> Claude content writing (SEO+LLM optimized, no inline images) -> Unsplash/Pexels image search -> GitHub commit (image + markdown) -> Netlify auto-rebuild
+- Workflow JSON: `n8n-workflow-blog-autopilot.json` (update via n8n API PUT `/api/v1/workflows/6ggSdbYzqAKTXPak`, remove `tags` field before sending)
 - **Other projects exist in this n8n instance — NEVER modify existing workflows. Only create new ones prefixed with "[Green Planet]".**
 
 ## Security
