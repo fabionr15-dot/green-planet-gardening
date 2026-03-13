@@ -1,6 +1,6 @@
 ---
-title: "Essential Irrigation Systems for Luxury Villa Gardens in Cyprus: A Complete Guide"
-description: "Discover the best irrigation systems for Cyprus villa gardens. Expert guide on drip irrigation, smart sprinklers, and water management for Mediterranean climates."
+title: "Essential Irrigation Systems for Luxury Gardens in Cyprus"
+description: "Discover the best irrigation solutions for luxury villa gardens in Cyprus. Expert guide on drip irrigation, smart sprinklers, and water management."
 pubDate: 2026-02-17
 author: "Green Planet Gardening"
 image: "/images/blog/irrigation-systems-cyprus.jpg"

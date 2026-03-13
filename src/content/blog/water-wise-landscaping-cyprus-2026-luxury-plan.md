@@ -1,5 +1,5 @@
 ---
-title: "Water-Wise Landscaping Cyprus: 2026 Luxury Plan"
+title: "Water-Wise Luxury Garden Plan for Cyprus"
 description: "A complete luxury water-wise garden plan for Cyprus. Xeriscaping, hydrozoning, and smart irrigation strategies for villas and resorts facing water restrictions."
 pubDate: 2026-02-09
 author: "Green Planet Gardening"

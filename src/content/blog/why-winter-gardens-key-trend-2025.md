@@ -1,6 +1,6 @@
 ---
-title: "Why Winter Gardens Are a Key Trend for 2025"
-description: "Discover why winter gardens are trending in 2025. Design ideas for year-round outdoor living with lighting, fire features, evergreen planting, and water features."
+title: "Winter Gardens: Year-Round Outdoor Luxury in Paphos"
+description: "Discover why winter gardens are the must-have luxury for year-round outdoor living in Paphos, Cyprus."
 pubDate: 2025-12-01
 author: "Green Planet Gardening"
 image: "/images/blog/winter-gardens-trend-2025.jpg"

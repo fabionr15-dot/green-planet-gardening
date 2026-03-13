@@ -1,6 +1,6 @@
 ---
-title: "Why Drought Resistant Plants Are One of the Most Searched Topics in Gardening"
-description: "Discover why drought resistant plants dominate gardening searches. Expert plant selections, design tips, and maintenance advice for water-wise Mediterranean gardens."
+title: "Discover Drought-Resistant Plants for Mediterranean Gardens"
+description: "Explore the benefits of drought-resistant plants and get expert tips for designing and maintaining water-wise Mediterranean gardens."
 pubDate: 2025-12-08
 author: "Green Planet Gardening"
 image: "/images/blog/drought-resistant-plants-gardening.jpg"

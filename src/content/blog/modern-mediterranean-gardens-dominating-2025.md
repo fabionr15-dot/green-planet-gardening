@@ -1,6 +1,6 @@
 ---
-title: "Why Modern Mediterranean Gardens Are Dominating 2025"
-description: "Modern Mediterranean garden ideas for elegant terraces and villas. Gravel gardens, drought-tolerant planting, outdoor living design, and step-by-step terrace planning."
+title: "Modern Mediterranean Gardens Shaping Luxury Landscapes"
+description: "Discover the latest trends in modern Mediterranean garden design for elegant terraces and villas in Cyprus."
 pubDate: 2025-10-01
 author: "Green Planet Gardening"
 image: "/images/blog/mediterranean-gardens-2025.jpg"

@@ -1,6 +1,6 @@
 ---
-title: "Lawn Care 2025: Smart and Eco-Friendly Ideas for a Green Lawn"
-description: "How lawn care is changing in 2025. Smart watering, robotic mowers, eco-friendly practices, and practical strategies for maintaining healthy lawns in Mediterranean climates."
+title: "Lawn Care 2025: Smart & Eco-Friendly Lawn Tips"
+description: "Discover the latest trends in smart, sustainable lawn care for Mediterranean climates. Explore eco-friendly practices and practical strategies."
 pubDate: 2025-11-01
 author: "Green Planet Gardening"
 image: "/images/blog/lawn-care-2025.jpg"
