@@ -1,6 +1,6 @@
 ---
-title: "Discover the Rise of Winter Gardens for Luxury Outdoor Living"
-description: "Explore the growing trend of winter gardens and how they enable year-round outdoor living with design ideas for lighting, fire features, and more."
+title: "Winter Gardens: A Trend to Transform Outdoor Living in 2025"
+description: "Discover how winter gardens can transform your outdoor living space with year-round appeal, from lighting and fire features to evergreen plantings."
 pubDate: 2025-12-01
 author: "Green Planet Gardening"
 image: "/images/blog/winter-gardens-trend-2025.jpg"

@@ -1,6 +1,6 @@
 ---
-title: "Discover Water-Wise Mediterranean Gardening"
-description: "Learn how to create a low-maintenance, drought-resistant garden in Cyprus with expert plant selection and design tips."
+title: "Drought-Resistant Plants for Mediterranean Gardens"
+description: "Discover top drought-resistant plants, design ideas, and maintenance tips for creating lush, water-wise Mediterranean gardens in Cyprus."
 pubDate: 2025-12-08
 author: "Green Planet Gardening"
 image: "/images/blog/drought-resistant-plants-gardening.jpg"
