@@ -1,6 +1,6 @@
 ---
-title: "Drought-Resistant Plants: The Hottest Gardening Trend"
-description: "Discover why drought-resistant plants are dominating gardening searches. Get expert tips for selecting and maintaining water-wise Mediterranean gardens."
+title: "Discover Water-Wise Mediterranean Gardening"
+description: "Learn how to create a low-maintenance, drought-resistant garden in Cyprus with expert plant selection and design tips."
 pubDate: 2025-12-08
 author: "Green Planet Gardening"
 image: "/images/blog/drought-resistant-plants-gardening.jpg"

@@ -1,6 +1,6 @@
 ---
-title: "Modern Mediterranean Gardens Dominating 2025"
-description: "Discover the latest trends in elegant Mediterranean garden design for luxury homes and villas in Cyprus."
+title: "Captivating Mediterranean Garden Designs for 2025"
+description: "Discover the latest Mediterranean garden trends and design ideas for creating elegant outdoor living spaces in 2025."
 pubDate: 2025-10-01
 author: "Green Planet Gardening"
 image: "/images/blog/mediterranean-gardens-2025.jpg"

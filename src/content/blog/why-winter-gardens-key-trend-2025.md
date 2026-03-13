@@ -1,6 +1,6 @@
 ---
-title: "Why Winter Gardens Thrive in Paphos, Cyprus"
-description: "Discover the benefits of winter gardens in Paphos, Cyprus. Design ideas for year-round outdoor living."
+title: "Discover the Rise of Winter Gardens for Luxury Outdoor Living"
+description: "Explore the growing trend of winter gardens and how they enable year-round outdoor living with design ideas for lighting, fire features, and more."
 pubDate: 2025-12-01
 author: "Green Planet Gardening"
 image: "/images/blog/winter-gardens-trend-2025.jpg"
