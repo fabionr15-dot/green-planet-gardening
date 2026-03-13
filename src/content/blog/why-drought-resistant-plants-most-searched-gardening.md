@@ -1,6 +1,6 @@
 ---
-title: "Discover Drought-Resistant Plants for Mediterranean Gardens"
-description: "Explore the benefits of drought-resistant plants and get expert tips for designing and maintaining water-wise Mediterranean gardens."
+title: "Drought-Resistant Plants: The Gardening Trend Dominating Searches"
+description: "Discover why drought-resistant plants are among the most searched gardening topics. Get expert plant selections, design tips, and maintenance advice for wa"
 pubDate: 2025-12-08
 author: "Green Planet Gardening"
 image: "/images/blog/drought-resistant-plants-gardening.jpg"

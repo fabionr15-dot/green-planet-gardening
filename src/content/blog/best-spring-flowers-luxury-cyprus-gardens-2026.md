@@ -1,6 +1,6 @@
 ---
 title: "Best Spring Flowers for Luxury Cyprus Gardens"
-description: "Discover the top spring blooms for stunning luxury gardens in Cyprus. Expert guide to Mediterranean flowering plants."
+description: "Discover the top spring flowers for stunning color in Cyprus luxury gardens. Expert guide to Mediterranean plants that thrive."
 pubDate: 2026-03-08
 author: "Green Planet Gardening"
 image: "/images/blog/best-spring-flowers-luxury-cyprus-gardens-2026.jpg"
