@@ -1,6 +1,6 @@
 ---
-title: "Luxury Landscaping in Cyprus: Choosing the Right Design-Build Partner"
-description: "Expert tips for selecting a luxury landscaping partner in Cyprus. Ensure your garden vision becomes a reality."
+title: "Luxury Landscape Design in Cyprus: Your Perfect Partner"
+description: "Find the right luxury landscaping partner in Cyprus to bring your garden vision to life. Avoid common mistakes and ensure a flawless project."
 pubDate: 2025-12-30
 author: "Green Planet Gardening"
 image: "/images/blog/luxury-landscaping-cyprus-partner.jpg"

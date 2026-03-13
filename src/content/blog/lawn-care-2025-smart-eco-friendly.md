@@ -1,6 +1,6 @@
 ---
-title: "Lawn Care 2025: Smart and Eco-Friendly Lawn Tips"
-description: "Discover the latest smart and eco-friendly lawn care trends for 2025, perfect for Mediterranean climates like Cyprus."
+title: "Smart & Eco-Friendly Lawn Care for Mediterranean Climates"
+description: "Discover the latest eco-friendly lawn care innovations for lush, low-maintenance Mediterranean gardens in Cyprus."
 pubDate: 2025-11-01
 author: "Green Planet Gardening"
 image: "/images/blog/lawn-care-2025.jpg"

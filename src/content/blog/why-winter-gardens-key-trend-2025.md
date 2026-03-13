@@ -1,6 +1,6 @@
 ---
-title: "Winter Gardens: A Trending Outdoor Oasis in Paphos, Cyprus"
-description: "Discover how to create a year-round outdoor living space with winter gardens. Get design ideas for Paphos, Cyprus homes from Green Planet Gardening."
+title: "Why Winter Gardens Thrive in Paphos, Cyprus"
+description: "Discover the benefits of winter gardens in Paphos, Cyprus. Design ideas for year-round outdoor living."
 pubDate: 2025-12-01
 author: "Green Planet Gardening"
 image: "/images/blog/winter-gardens-trend-2025.jpg"
