@@ -1,6 +1,6 @@
 ---
-title: "Irrigation Systems for Luxury Villa Gardens in Cyprus"
-description: "Discover the best irrigation solutions for Mediterranean villa gardens in Cyprus from the experts at Green Planet Gardening."
+title: "Optimizing Irrigation for Luxury Villa Gardens in Cyprus"
+description: "Discover the best irrigation solutions for your luxury villa garden in Cyprus. Our expert guide covers drip irrigation, smart sprinklers, and water managem"
 pubDate: 2026-02-17
 author: "Green Planet Gardening"
 image: "/images/blog/irrigation-systems-cyprus.jpg"

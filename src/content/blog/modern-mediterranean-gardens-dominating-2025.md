@@ -1,6 +1,6 @@
 ---
-title: "Embracing Modern Mediterranean Gardens in 2025"
-description: "Discover the captivating world of modern Mediterranean gardens and how they are shaping outdoor living in 2025."
+title: "Modern Mediterranean Gardens Transforming Luxury Outdoor Spaces"
+description: "Discover how modern Mediterranean garden design is elevating luxury terraces and villas in Cyprus. Explore drought-tolerant planting, gravel gardens, and o"
 pubDate: 2025-10-01
 author: "Green Planet Gardening"
 image: "/images/blog/mediterranean-gardens-2025.jpg"
