@@ -1,6 +1,6 @@
 ---
-title: "Luxury Landscape Design in Cyprus: Your Perfect Partner"
-description: "Find the right luxury landscaping partner in Cyprus to bring your garden vision to life. Avoid common mistakes and ensure a flawless project."
+title: "Luxury Landscaping in Cyprus: How to Find the Right Partner"
+description: "Discover expert tips for choosing the perfect luxury landscaping partner in Cyprus. Ensure your garden vision becomes a reality."
 pubDate: 2025-12-30
 author: "Green Planet Gardening"
 image: "/images/blog/luxury-landscaping-cyprus-partner.jpg"
@@ -8,7 +8,6 @@ imageAlt: "Luxury landscaped garden at a Cyprus villa with stone pathways and Me
 tags: ["luxury landscaping", "Cyprus", "design-build", "garden design", "villa"]
 category: "Design Inspiration"
 ---
-
 Luxury landscaping is a design-and-build process that unites site reading, planting, hardscape, irrigation and lighting into one coherent outdoor space. Choosing the right partner for this process determines whether your vision becomes a garden you love — or an expensive disappointment.
 
 ![Luxury villa garden with pool, pergola and refined Mediterranean planting in Cyprus](/images/blog/luxury-villa-pool-cyprus.webp)
@@ -75,3 +74,34 @@ Many luxury gardens in Cyprus decline within two years because there is no profe
 Choosing the right design-build partner is the most important decision in any luxury landscaping project. Take time to compare processes, not just prices. Visit completed projects. Ask about maintenance.
 
 Ready to discuss your property? [Contact Green Planet Gardening](/contact) for a consultation, or explore our [full range of services](/services) to understand our approach.
+
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://greenplanetgardening.eu/blog/luxury-landscaping-cyprus-choose-design-build-partner/"
+  },
+  "headline": "Luxury Landscaping in Cyprus: How to Find the Right Partner",
+  "description": "Discover expert tips for choosing the perfect luxury landscaping partner in Cyprus. Ensure your garden vision becomes a reality.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://greenplanetgardening.eu/wp-content/uploads/2023/04/luxury-garden-cyprus.jpg",
+    "width": 800,
+    "height": 600
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "Green Planet Gardening & Landscaping"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Green Planet Gardening & Landscaping",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://greenplanetgardening.eu/wp-content/uploads/2023/04/green-planet-logo.png"
+    }
+  },
+  "datePublished": "2023-04-01",
+  "dateModified": "2023-04-01"
+}

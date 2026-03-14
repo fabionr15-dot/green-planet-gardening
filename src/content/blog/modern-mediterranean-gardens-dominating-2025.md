@@ -1,6 +1,6 @@
 ---
-title: "Designing Stunning Mediterranean Gardens for Cyprus Homes"
-description: "Discover how to create a luxurious Mediterranean-inspired garden for your Paphos home with expert landscaping design ideas."
+title: "The Rise of Modern Mediterranean Gardens"
+description: "Discover the allure of modern Mediterranean gardens and how they're transforming outdoor living in 2025."
 pubDate: 2025-10-01
 author: "Green Planet Gardening"
 image: "/images/blog/mediterranean-gardens-2025.jpg"
