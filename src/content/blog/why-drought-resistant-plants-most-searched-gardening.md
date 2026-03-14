@@ -1,6 +1,6 @@
 ---
-title: "The Rise of Drought-Resistant Gardening in Cyprus"
-description: "Discover the top gardening trend in Cyprus - drought-resistant plants. Get expert plant recommendations, design tips, and maintenance advice for water-wise"
+title: "Why Drought-Resistant Plants Are a Top Gardening Search"
+description: "Discover the best drought-resistant plants, design tips, and maintenance advice for water-wise Mediterranean gardens."
 pubDate: 2025-12-08
 author: "Green Planet Gardening"
 image: "/images/blog/drought-resistant-plants-gardening.jpg"
