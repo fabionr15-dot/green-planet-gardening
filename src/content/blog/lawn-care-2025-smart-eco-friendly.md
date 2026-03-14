@@ -1,6 +1,6 @@
 ---
 title: "Smart and Eco-Friendly Lawn Care for 2025"
-description: "Discover the latest smart and eco-friendly lawn care trends for 2025, including smart watering, robotic mowers, and practical strategies for maintaining he"
+description: "Discover the latest smart and eco-friendly lawn care trends for 2025, from smart watering to robotic mowers. Maintain a healthy, green lawn in the Mediterranean climate."
 pubDate: 2025-11-01
 author: "Green Planet Gardening"
 image: "/images/blog/lawn-care-2025.jpg"
@@ -52,6 +52,23 @@ We offer site evaluation, [irrigation design](/services), grass variety selectio
   "headline": "Smart and Eco-Friendly Lawn Care for 2025",
   "description": "Discover the latest smart and eco-friendly lawn care trends for 2025, including smart watering, robotic mowers, and practical strategies for maintaining healthy lawns in Mediterranean climates.",
   "author": {
+    "@type": "Organization",
+    "name": "Green Planet Gardening & Landscaping"
+  },
+  "datePublished": "2023-04-01"
+}
+
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Smart and Eco-Friendly Lawn Care for 2025",
+  "description": "Discover the latest smart and eco-friendly lawn care trends for 2025, from smart watering to robotic mowers. Maintain a healthy, green lawn in the Mediterranean climate.",
+  "image": "https://www.greenplanetgardening.eu/images/lawn-care-2025.jpg",
+  "author": {
+    "@type": "Organization",
+    "name": "Green Planet Gardening & Landscaping"
+  },
+  "publisher": {
     "@type": "Organization",
     "name": "Green Planet Gardening & Landscaping"
   },
