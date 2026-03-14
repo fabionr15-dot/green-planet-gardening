@@ -1,6 +1,6 @@
 ---
-title: "Enchanting Spring Flowers for Luxury Cyprus Gardens"
-description: "Discover the most enchanting spring flowers to transform your luxury Cyprus garden into a stunning oasis. Our expert guide highlights the best Mediterranea"
+title: "Best Spring Flowers to Enhance Luxury Cyprus Gardens"
+description: "Discover the top spring flowers that bring stunning color displays to luxury Cyprus gardens. Our expert guide covers Mediterranean flowering plants that th"
 pubDate: 2026-03-08
 author: "Green Planet Gardening"
 image: "/images/blog/best-spring-flowers-luxury-cyprus-gardens-2026.jpg"
