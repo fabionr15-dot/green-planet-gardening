@@ -1,6 +1,6 @@
 ---
-title: "Eco-Friendly Lawn Care in 2025"
-description: "Discover smart watering, robotic mowers, and sustainable lawn care practices for a lush, green lawn in Cyprus."
+title: "Luxury Lawn Care in 2025: Smart and Eco-Friendly Solutions"
+description: "Discover the future of sustainable lawn care in Cyprus with Green Planet Gardening's expert insights on smart watering, robotic mowers, and eco-friendly pr"
 pubDate: 2025-11-01
 author: "Green Planet Gardening"
 image: "/images/blog/lawn-care-2025.jpg"
@@ -136,3 +136,33 @@ We offer site evaluation, [irrigation design](/services), grass variety selectio
   },
   "description": "Discover smart watering, robotic mowers, and sustainable lawn care practices for a lush, green lawn in Cyprus."
 }
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://greenplanetgardening.eu/blog/lawn-care-2025-smart-eco-friendly/"
+  },
+  "headline": "Luxury Lawn Care in 2025: Smart and Eco-Friendly Solutions",
+  "image": [
+    "https://greenplanetgardening.eu/wp-content/uploads/2023/04/lawn-care-2025.webp"
+  ],
+  "datePublished": "2023-04-01",
+  "dateModified": "2023-04-01",
+  "author": {
+    "@type": "Organization",
+    "name": "Green Planet Gardening & Landscaping"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Green Planet Gardening & Landscaping",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://greenplanetgardening.eu/wp-content/uploads/2023/04/green-planet-logo.png"
+    }
+  },
+  "description": "Discover the future of sustainable lawn care in Cyprus with Green Planet Gardening's expert insights on smart watering, robotic mowers, and eco-friendly practices for a lush, green landscape."
+}
+</script>
