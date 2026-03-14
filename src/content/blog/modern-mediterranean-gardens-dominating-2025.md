@@ -1,6 +1,6 @@
 ---
-title: "Why Modern Mediterranean Gardens Are Thriving"
-description: "Discover the allure of modern Mediterranean gardens and how they're redefining outdoor living in Cyprus."
+title: "Embracing Modern Mediterranean Gardens in 2025"
+description: "Discover the captivating world of modern Mediterranean gardens and how they are shaping outdoor living in 2025."
 pubDate: 2025-10-01
 author: "Green Planet Gardening"
 image: "/images/blog/mediterranean-gardens-2025.jpg"
