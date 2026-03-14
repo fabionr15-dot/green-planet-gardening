@@ -1,6 +1,6 @@
 ---
-title: "Choosing the Right Luxury Landscaping Partner in Cyprus"
-description: "Expert tips for selecting a premium landscaping design-build firm in Cyprus to bring your garden vision to life."
+title: "Choosing the Right Luxury Landscape Partner in Cyprus"
+description: "Discover expert tips for selecting the perfect luxury landscaping firm to transform your outdoor oasis in Cyprus."
 pubDate: 2025-12-30
 author: "Green Planet Gardening"
 image: "/images/blog/luxury-landscaping-cyprus-partner.jpg"
@@ -164,3 +164,34 @@ Ready to discuss your property? [Contact Green Planet Gardening](/contact) for a
   "datePublished": "2023-05-01"
 }
 </script>
+
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://greenplanetgardening.eu/blog/luxury-landscaping-cyprus-choose-design-build-partner/"
+  },
+  "headline": "Choosing the Right Luxury Landscape Partner in Cyprus",
+  "description": "Discover expert tips for selecting the perfect luxury landscaping firm to transform your outdoor oasis in Cyprus.",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://greenplanetgardening.eu/images/luxury-landscape-cyprus.webp",
+    "width": 1200,
+    "height": 630
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "Green Planet Gardening"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Green Planet Gardening",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://greenplanetgardening.eu/images/logo.png"
+    }
+  },
+  "datePublished": "2023-04-01",
+  "dateModified": "2023-04-01"
+}
