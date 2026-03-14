@@ -1,6 +1,6 @@
 ---
-title: "Discover the Allure of Winter Gardens in 2025"
-description: "Explore the growing trend of winter gardens and how they can transform your outdoor living space in Cyprus."
+title: "Embrace the Beauty of Winter Gardens in 2025"
+description: "Discover the latest trends in winter garden design and create a cozy outdoor oasis for year-round enjoyment."
 pubDate: 2025-12-01
 author: "Green Planet Gardening"
 image: "/images/blog/winter-gardens-trend-2025.jpg"
@@ -59,3 +59,5 @@ By creating a winter garden, homeowners in Cyprus can extend the usable season o
 [Discover our Landscaping Services](/services)
 [Explore our Portfolio of Mediterranean Gardens](/gallery)
 [Contact Us to Bring Your Winter Garden Vision to Life](/contact)
+
+Stunning winter garden design featuring evergreen plants
