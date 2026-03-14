@@ -1,6 +1,6 @@
 ---
-title: "Designing Modern Mediterranean Gardens for Luxury Homes"
-description: "Elevate your outdoor living with modern Mediterranean garden design ideas for elegant terraces and villas in Cyprus."
+title: "Designing Modern Mediterranean Gardens for 2025"
+description: "Discover the latest trends in modern Mediterranean garden design for elegant terraces and villas in Cyprus. From gravel gardens to drought-tolerant plantin"
 pubDate: 2025-10-01
 author: "Green Planet Gardening"
 image: "/images/blog/mediterranean-gardens-2025.jpg"
