@@ -34,12 +34,118 @@ const { title, description, canonical, image, ogType, schemaType, schemaData, fa
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
   <meta name="theme-color" content="#1B3A2D" />
 </head>
-<body class="bg-cream text-charcoal font-inter antialiased">
+<body class="bg-cream text-charcoal font-inter antialiased overflow-x-hidden">
+  <!-- Film Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
   <Header />
-  <main class="pt-20">
+  <main>
     <slot />
   </main>
   <Footer />
   <CookieConsent />
+
+  <script>
+    // ─── Custom Cursor ───
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (dot) {
+        dot.style.left = mouseX - 4 + 'px';
+        dot.style.top = mouseY - 4 + 'px';
+      }
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      if (ring) {
+        ring.style.left = ringX + 'px';
+        ring.style.top = ringY + 'px';
+      }
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .hero-cta, .cta-btn, .cta-btn-outline, .filter-btn, summary').forEach(el => {
+      el.addEventListener('mouseenter', () => ring && ring.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => ring && ring.classList.remove('hovering'));
+    });
+
+    document.querySelectorAll('[data-image-hover]').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring && ring.classList.add('on-image'); ring && ring.classList.remove('hovering'); });
+      el.addEventListener('mouseleave', () => ring && ring.classList.remove('on-image'));
+    });
+
+    // ─── Scroll Reveal ───
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.fade-in, .reveal').forEach(el => revealObserver.observe(el));
+
+    // ─── Image Reveal (clip-path) ───
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('revealed');
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.split-image-wrapper').forEach(el => imageObserver.observe(el));
+
+    // ─── Counter Animation ───
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          const target = parseInt(el.dataset.count || '0');
+          const suffix = el.dataset.suffix || '+';
+          let current = 0;
+          const duration = 2000;
+          const step = target / (duration / 16);
+          const counter = setInterval(() => {
+            current += step;
+            if (current >= target) { current = target; clearInterval(counter); }
+            el.textContent = Math.floor(current) + suffix;
+          }, 16);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+    // ─── Gallery Drag Scroll ───
+    document.querySelectorAll('.gallery-track').forEach(track => {
+      let isDown = false, startX = 0, scrollLeft = 0;
+      track.addEventListener('mousedown', (e) => { isDown = true; startX = (e as MouseEvent).pageX - (track as HTMLElement).offsetLeft; scrollLeft = (track as HTMLElement).scrollLeft; });
+      track.addEventListener('mouseleave', () => isDown = false);
+      track.addEventListener('mouseup', () => isDown = false);
+      track.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        (track as HTMLElement).scrollLeft = scrollLeft - ((e as MouseEvent).pageX - (track as HTMLElement).offsetLeft - startX) * 1.5;
+      });
+    });
+
+    // ─── Parallax Hero ───
+    const heroBg = document.querySelector('.hero-bg') as HTMLElement;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight && heroBg) {
+        heroBg.style.transform = `translateY(${y * 0.35}px) scale(1.05)`;
+      }
+    }, { passive: true });
+  </script>
 </body>
 </html>

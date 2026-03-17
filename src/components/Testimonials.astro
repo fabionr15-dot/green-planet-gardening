@@ -2,57 +2,50 @@
 import testimonials from '../data/testimonials.json';
 ---
 
-<section class="py-20 bg-sand/30">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-12 fade-in">What Our Clients Say</h2>
-    <div id="testimonial-slider" class="relative overflow-hidden">
-      <div id="testimonial-track" class="flex transition-transform duration-500">
-        {testimonials.map((t: {quote: string; author: string}) => (
-          <div class="min-w-full px-4">
-            <svg class="w-10 h-10 text-gold/40 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-            <blockquote class="text-lg sm:text-xl text-charcoal/90 italic leading-relaxed mb-6 font-light">
-              "{t.quote}"
-            </blockquote>
-            <cite class="text-gold font-semibold not-italic">— {t.author}</cite>
-          </div>
-        ))}
+<section class="testimonials-section">
+  <div style="max-width:800px;margin:0 auto;">
+    <span class="section-tag reveal" style="text-align:center;">Testimonials</span>
+    <h2 class="section-title reveal reveal-delay-1" style="text-align:center;">What Our Clients Say</h2>
+    <div style="height:48px;"></div>
+    <div class="testimonial-big-quote">&ldquo;</div>
+    {testimonials.map((t: {quote: string; author: string}, i: number) => (
+      <div class="testimonial-slide" style={i === 0 ? 'display:block;opacity:1;' : 'display:none;opacity:0;'}>
+        <p class="testimonial-text-cinema">"{t.quote}"</p>
+        <p class="testimonial-name-cinema">&mdash; {t.author}</p>
       </div>
-      <!-- Dots -->
-      <div class="flex justify-center gap-2 mt-8">
-        {testimonials.map((_: any, i: number) => (
-          <button
-            class:list={['testimonial-dot w-2.5 h-2.5 rounded-full transition-colors', i === 0 ? 'bg-gold' : 'bg-forest/20']}
-            data-index={i}
-            aria-label={`Testimonial ${i + 1}`}
-          ></button>
-        ))}
-      </div>
+    ))}
+    <div class="testimonial-dots">
+      {testimonials.map((_: any, i: number) => (
+        <button
+          class:list={['testimonial-dot', i === 0 && 'active']}
+          data-index={i}
+          aria-label={`Testimonial ${i + 1}`}
+        ></button>
+      ))}
     </div>
   </div>
 </section>
 
 <script>
-  let current = 0;
-  const track = document.getElementById('testimonial-track');
+  const testimonials = document.querySelectorAll('.testimonial-slide');
   const dots = document.querySelectorAll('.testimonial-dot');
-  const total = dots.length;
+  let currentSlide = 0;
 
-  function goTo(index: number) {
-    current = index;
-    if (track) track.style.transform = `translateX(-${current * 100}%)`;
-    dots.forEach((d, i) => {
-      d.classList.toggle('bg-gold', i === current);
-      d.classList.toggle('bg-forest/20', i !== current);
-    });
+  function showSlide(n: number) {
+    testimonials.forEach(t => { (t as HTMLElement).style.display = 'none'; (t as HTMLElement).style.opacity = '0'; });
+    dots.forEach(d => d.classList.remove('active'));
+    if (testimonials[n]) {
+      (testimonials[n] as HTMLElement).style.display = 'block';
+      setTimeout(() => (testimonials[n] as HTMLElement).style.opacity = '1', 50);
+    }
+    if (dots[n]) dots[n].classList.add('active');
+    currentSlide = n;
   }
 
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      const idx = Number(dot.getAttribute('data-index'));
-      goTo(idx);
-    });
-  });
+  dots.forEach((dot, i) => dot.addEventListener('click', () => showSlide(i)));
 
-  // Auto-slide every 6 seconds
-  setInterval(() => goTo((current + 1) % total), 6000);
+  if (testimonials.length > 0) {
+    testimonials.forEach(t => { (t as HTMLElement).style.transition = 'opacity 0.5s ease'; });
+    setInterval(() => showSlide((currentSlide + 1) % testimonials.length), 6000);
+  }
 </script>

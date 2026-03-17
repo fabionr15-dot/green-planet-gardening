@@ -1,0 +1,14 @@
+---
+interface Props {
+  topColor?: string;
+  bottomColor?: string;
+}
+
+const { topColor = '#1B3A2D', bottomColor = '#FAF8F5' } = Astro.props;
+---
+
+<div class="wave-divider" style={`background:${topColor};`}>
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill={bottomColor} />
+  </svg>
+</div>

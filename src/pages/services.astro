@@ -16,112 +16,149 @@ import services from '../data/services.json';
   ]}
 >
   <Hero
-    title="Our Services & Expertise"
+    title="Services & Expertise"
     subtitle="A complete range of luxury landscape design and green care services, tailored to the unique beauty of Cyprus."
-    backgroundImage="/images/hero/hero-services.jpg"
+    backgroundImage="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1920&q=80&fit=crop&crop=center"
+    variant="inner"
   />
 
-  <!-- Services -->
-  {services.map((service: any, i: number) => (
-    <section class:list={['py-20', i % 2 === 1 ? 'bg-sand/20' : '']}>
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class:list={['grid grid-cols-1 lg:grid-cols-2 gap-12 items-center', i % 2 === 1 ? 'lg:flex-row-reverse' : '']}>
-          <div class:list={[i % 2 === 1 ? 'lg:order-2' : '', 'fade-in']}>
-            <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-6">{service.title}</h2>
-            <p class="text-charcoal/80 leading-relaxed mb-6">{service.description}</p>
-            <h3 class="text-lg font-playfair text-forest mb-4">What's Included:</h3>
-            <ul class="space-y-2">
-              {service.features.map((f: string) => (
-                <li class="flex items-start gap-3 text-sm text-charcoal/70">
-                  <svg class="w-4 h-4 text-gold shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div class:list={[i % 2 === 1 ? 'lg:order-1' : '', 'fade-in']}>
-            <img src={service.image} alt={service.alt} class="rounded-lg shadow-lg w-full" loading="lazy" width="800" height="600" />
-          </div>
+  <!-- Service 1 — Luxury Garden Design & Construction -->
+  <section style="background:var(--color-cream);">
+    <div class="split-section">
+      <div class="split-image-wrapper">
+        <div class="image-reveal">
+          <img class="split-image" src={services[0].image} alt={services[0].alt} loading="lazy" width="800" height="600" />
         </div>
       </div>
-    </section>
-  ))}
+      <div class="split-content">
+        <div class="overlap-card">
+          <span class="section-tag reveal">Service 01</span>
+          <h2 class="section-title reveal reveal-delay-1">{services[0].title}</h2>
+          <div class="section-line reveal reveal-delay-2"></div>
+          <p class="section-text reveal reveal-delay-2">{services[0].description}</p>
+          <h3 class="section-text reveal reveal-delay-3" style="font-family:var(--font-heading);color:var(--color-forest);margin-top:16px;">What's Included:</h3>
+          <ul class="feature-list reveal reveal-delay-3">
+            {services[0].features.map((f: string) => (
+              <li>{f}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service 2 — Professional Maintenance & Green Management -->
+  <section style="background:var(--color-cream);">
+    <div class="split-section reverse">
+      <div class="split-image-wrapper">
+        <div class="image-reveal">
+          <img class="split-image" src={services[1].image} alt={services[1].alt} loading="lazy" width="800" height="600" />
+        </div>
+      </div>
+      <div class="split-content">
+        <div class="overlap-card">
+          <span class="section-tag reveal">Service 02</span>
+          <h2 class="section-title reveal reveal-delay-1">{services[1].title}</h2>
+          <div class="section-line reveal reveal-delay-2"></div>
+          <p class="section-text reveal reveal-delay-2">{services[1].description}</p>
+          <h3 class="section-text reveal reveal-delay-3" style="font-family:var(--font-heading);color:var(--color-forest);margin-top:16px;">What's Included:</h3>
+          <ul class="feature-list reveal reveal-delay-3">
+            {services[1].features.map((f: string) => (
+              <li>{f}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service 3 — Tailored Consulting -->
+  <section style="background:var(--color-cream);">
+    <div class="split-section">
+      <div class="split-image-wrapper">
+        <div class="image-reveal">
+          <img class="split-image" src={services[2].image} alt={services[2].alt} loading="lazy" width="800" height="600" />
+        </div>
+      </div>
+      <div class="split-content">
+        <div class="overlap-card">
+          <span class="section-tag reveal">Service 03</span>
+          <h2 class="section-title reveal reveal-delay-1">{services[2].title}</h2>
+          <div class="section-line reveal reveal-delay-2"></div>
+          <p class="section-text reveal reveal-delay-2">{services[2].description}</p>
+          <h3 class="section-text reveal reveal-delay-3" style="font-family:var(--font-heading);color:var(--color-forest);margin-top:16px;">What's Included:</h3>
+          <ul class="feature-list reveal reveal-delay-3">
+            {services[2].features.map((f: string) => (
+              <li>{f}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Process -->
-  <section class="py-20 bg-forest">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-playfair text-cream mb-12 text-center">From Vision to Reality</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {[
-          { step: '1', title: 'Consultation', text: 'We meet you at your property, listen to your vision, and assess the site.' },
-          { step: '2', title: 'Concept', text: 'We develop initial design concepts and present them for your feedback.' },
-          { step: '3', title: 'Design', text: 'The approved concept evolves into detailed plans with plant schedules, materials, and lighting.' },
-          { step: '4', title: 'Construction', text: 'Our team builds your garden with meticulous attention to every detail.' },
-          { step: '5', title: 'Handover', text: 'We walk you through your new garden, explaining care and seasonal rhythms.' },
-          { step: '6', title: 'Ongoing Care', text: 'Optional maintenance programmes keep your garden thriving year-round.' },
-        ].map(s => (
-          <div class="text-center">
-            <span class="inline-flex items-center justify-center w-12 h-12 rounded-full border-2 border-gold text-gold font-playfair text-lg mb-4">{s.step}</span>
-            <h3 class="font-playfair text-cream text-lg mb-2">{s.title}</h3>
-            <p class="text-cream/70 text-sm">{s.text}</p>
-          </div>
-        ))}
-      </div>
+  <section class="section-padding" style="background:var(--color-forest);">
+    <div class="section-max section-center">
+      <span class="section-tag reveal" style="color:var(--color-gold);">Our Process</span>
+      <h2 class="section-title reveal reveal-delay-1" style="text-align:center;color:white;">From Vision to Reality</h2>
+      <div style="height:48px;"></div>
+    </div>
+    <div class="process-grid">
+      {[
+        { num: '01', title: 'Consultation', text: 'We meet you at your property, listen to your vision, and assess the site.' },
+        { num: '02', title: 'Concept', text: 'We develop initial design concepts and present them for your feedback.' },
+        { num: '03', title: 'Design', text: 'The approved concept evolves into detailed plans with plant schedules, materials, and lighting.' },
+        { num: '04', title: 'Construction', text: 'Our team builds your garden with meticulous attention to every detail.' },
+        { num: '05', title: 'Handover', text: 'We walk you through your new garden, explaining care and seasonal rhythms.' },
+        { num: '06', title: 'Ongoing Care', text: 'Optional maintenance programmes keep your garden thriving year-round.' },
+      ].map((s, i) => (
+        <div class="process-step reveal" style={`--i:${i}`}>
+          <div class="process-number">{s.num}</div>
+          <h3>{s.title}</h3>
+          <p>{s.text}</p>
+        </div>
+      ))}
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="py-20 bg-sand/20">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-10 text-center">Frequently Asked Questions</h2>
-      <div class="space-y-6">
-        <details class="group border-b border-warm-gray/20 pb-6">
-          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
-            What luxury landscaping services does Green Planet Gardening offer in Cyprus?
-            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <p class="mt-4 text-charcoal/70 leading-relaxed">Green Planet Gardening offers three core services: luxury garden design and construction (including hardscaping, softscaping, lighting, and irrigation), professional maintenance and green management, and tailored consulting for architects and investors. All services are available across Paphos, Limassol, and the rest of Cyprus.</p>
-        </details>
-        <details class="group border-b border-warm-gray/20 pb-6">
-          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
-            How much does luxury landscaping cost in Cyprus?
-            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <p class="mt-4 text-charcoal/70 leading-relaxed">Costs vary based on garden size, design complexity, and materials. Green Planet Gardening provides detailed quotations after an initial consultation and site visit. A 30% deposit is required to begin work, with the remaining balance due within 14 days of project completion.</p>
-        </details>
-        <details class="group border-b border-warm-gray/20 pb-6">
-          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
-            How long does a garden design and construction project take?
-            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <p class="mt-4 text-charcoal/70 leading-relaxed">A typical luxury garden project takes 4 to 12 weeks from design approval to completion. The timeline depends on project scope, season, and material availability. Green Planet Gardening provides a detailed timeline during the quotation phase.</p>
-        </details>
-        <details class="group border-b border-warm-gray/20 pb-6">
-          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
-            Does Green Planet Gardening offer ongoing garden maintenance?
-            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <p class="mt-4 text-charcoal/70 leading-relaxed">Yes. Green Planet Gardening provides professional maintenance programmes including scheduled lawn care, pruning, irrigation management, fertilisation, pest control, and seasonal planting — tailored to the Mediterranean climate of Cyprus.</p>
-        </details>
-        <details class="group border-b border-warm-gray/20 pb-6">
-          <summary class="flex justify-between items-center cursor-pointer text-lg font-playfair text-forest">
-            What areas of Cyprus does Green Planet Gardening serve?
-            <svg class="w-5 h-5 text-gold shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <p class="mt-4 text-charcoal/70 leading-relaxed">Green Planet Gardening is based in Paphos and serves all regions of Cyprus, including Limassol, Nicosia, Larnaca, Ayia Napa, and mountain properties. The company specialises in Mediterranean and drought-resistant landscaping suited to the Cyprus climate.</p>
-        </details>
-      </div>
+  <section class="section-padding" style="background:var(--color-cream);">
+    <div class="section-max section-center">
+      <span class="section-tag reveal">Questions</span>
+      <h2 class="section-title reveal reveal-delay-1" style="text-align:center;">Frequently Asked Questions</h2>
+      <div style="height:32px;"></div>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What luxury landscaping services does Green Planet Gardening offer in Cyprus?</summary>
+        <div class="faq-answer">Green Planet Gardening offers three core services: luxury garden design and construction (including hardscaping, softscaping, lighting, and irrigation), professional maintenance and green management, and tailored consulting for architects and investors. All services are available across Paphos, Limassol, and the rest of Cyprus.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How much does luxury landscaping cost in Cyprus?</summary>
+        <div class="faq-answer">Costs vary based on garden size, design complexity, and materials. Green Planet Gardening provides detailed quotations after an initial consultation and site visit. A 30% deposit is required to begin work, with the remaining balance due within 14 days of project completion.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How long does a garden design and construction project take?</summary>
+        <div class="faq-answer">A typical luxury garden project takes 4 to 12 weeks from design approval to completion. The timeline depends on project scope, season, and material availability. Green Planet Gardening provides a detailed timeline during the quotation phase.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Does Green Planet Gardening offer ongoing garden maintenance?</summary>
+        <div class="faq-answer">Yes. Green Planet Gardening provides professional maintenance programmes including scheduled lawn care, pruning, irrigation management, fertilisation, pest control, and seasonal planting — tailored to the Mediterranean climate of Cyprus.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What areas of Cyprus does Green Planet Gardening serve?</summary>
+        <div class="faq-answer">Green Planet Gardening is based in Paphos and serves all regions of Cyprus, including Limassol, Nicosia, Larnaca, Ayia Napa, and mountain properties. The company specialises in Mediterranean and drought-resistant landscaping suited to the Cyprus climate.</div>
+      </details>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="py-20">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl sm:text-4xl font-playfair text-forest mb-6">Let's Create Something Beautiful Together</h2>
-      <p class="text-charcoal/70 leading-relaxed mb-8">Every project starts with a conversation. Tell us about your space and your vision.</p>
-      <a href="/contact" class="inline-block bg-gold text-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-amber-600 transition-colors rounded font-medium">
-        Request a Consultation
-      </a>
+  <section class="cta-section">
+    <h2 class="reveal">Let's Create Something Beautiful Together</h2>
+    <p class="reveal reveal-delay-1">Every project starts with a conversation. Tell us about your space and your vision.</p>
+    <div class="reveal reveal-delay-2">
+      <a href="/contact" class="cta-btn">Request a Consultation</a>
     </div>
   </section>
 </BaseLayout>

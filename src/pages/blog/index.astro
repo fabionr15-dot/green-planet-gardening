@@ -1,39 +1,49 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogCard from '../../components/BlogCard.astro';
+import Hero from '../../components/Hero.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <BaseLayout
-  title="[object Object]"
+  title="Blog | Green Planet Gardening"
   description="Expert gardening tips for Cyprus. Mediterranean landscaping inspiration, plant care guides and design ideas from Green Planet Gardening."
   schemaType="CollectionPage"
   schemaData={{ title: "Green Planet Gardening Blog", description: "Expert gardening tips, Mediterranean landscaping inspiration, and plant care guides for Cyprus.", url: "https://greenplanetgardening.eu/blog" }}
 >
-  <section class="py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h1 class="text-4xl sm:text-5xl font-playfair text-forest mb-6">[object Object]</h1>
-        <p class="text-charcoal/70 max-w-2xl mx-auto leading-relaxed">
-          Insights, inspiration, and expert knowledge from our team. Discover Mediterranean gardening tips, design ideas, and behind-the-scenes looks at our luxury landscaping projects across Cyprus.
-        </p>
-      </div>
+  <Hero
+    title="Our Blog"
+    subtitle="Insights, inspiration, and expert knowledge from our team. Discover Mediterranean gardening tips, design ideas, and behind-the-scenes looks at our luxury landscaping projects across Cyprus."
+    backgroundImage="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80&fit=crop&crop=center"
+    variant="inner"
+  />
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post) => (
-          <BlogCard
-            title={post.data.title}
-            description={post.data.description}
-            image={post.data.image}
-            imageAlt={post.data.imageAlt}
-            date={post.data.pubDate}
-            category={post.data.category}
-            slug={post.slug}
-          />
-        ))}
-      </div>
+  <!-- Blog Grid -->
+  <section class="section-padding" style="background:var(--color-cream);">
+    <div class="blog-grid-cinema">
+      {posts.map((post, i) => (
+        <a href={`/blog/${post.slug}`} class="blog-card-cinema reveal" style={`--i:${i}`}>
+          <div class="blog-card-image" data-image-hover>
+            <img src={post.data.image} alt={post.data.imageAlt} loading="lazy" width="600" height="400" />
+          </div>
+          <div class="blog-card-content">
+            <div class="blog-card-cat">{post.data.category}</div>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+            <div class="blog-card-date">{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="reveal">Have a Garden Question?</h2>
+    <p class="reveal reveal-delay-1">Our team shares expert knowledge through our blog, but we're always happy to help personally.</p>
+    <div class="reveal reveal-delay-2">
+      <a href="/contact" class="cta-btn">Get in Touch</a>
     </div>
   </section>
 </BaseLayout>
