@@ -33,7 +33,7 @@ Stored in `../api-keys/.env.example` (outside repo). For Netlify deployment, set
 
 ## n8n Blog Autopilot
 - Instance: `https://n8n.srv1125865.hstgr.cloud/`
-- Workflow: "[Green Planet] Blog Autopilot" (ID: 6ggSdbYzqAKTXPak), runs every 10 days
+- Workflow: "[Green Planet] Blog Autopilot" (ID: 6ggSdbYzqAKTXPak), runs Mon/Wed/Fri at 09:00 (3x/week)
 - Tags: `green-planet`, `blog-autopilot`
 - GitHub repo: `fabionr15-dot/green-planet-gardening` (main branch)
 - Flow: Schedule -> Fetch existing posts (GitHub API, avoids duplicates) -> Claude topic selection -> Claude content writing (SEO+LLM optimized, no inline images) -> Unsplash/Pexels image search -> GitHub commit (image + markdown) -> Netlify auto-rebuild

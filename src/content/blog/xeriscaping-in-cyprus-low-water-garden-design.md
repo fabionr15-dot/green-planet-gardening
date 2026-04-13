@@ -3,7 +3,7 @@ title: "Xeriscaping in Cyprus: Low-Water Garden Design for Hot Summers"
 description: "Discover how to create a luxurious, low-maintenance garden oasis in Cyprus using drought-resistant xeriscaping techniques."
 pubDate: "2026-03-14"
 author: "Green Planet Team"
-image: "/images/blog/garden-design.jpg"
+image: "/images/blog/water-wise-landscaping-cyprus.jpg"
 imageAlt: "Xeriscaping in Cyprus: Low-Water Garden Design for Hot Summers - Green Planet Gardening Cyprus"
 tags: ["Xeriscaping", "Low-Water Gardening", "Drought-Resistant Plants", "Mediterranean Gardening", "Sustainable Landscaping"]
 category: "Garden Design"

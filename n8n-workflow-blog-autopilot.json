@@ -6,8 +6,12 @@
         "rule": {
           "interval": [
             {
-              "field": "days",
-              "daysInterval": 10,
+              "field": "weeks",
+              "triggerAtDay": [
+                1,
+                3,
+                5
+              ],
               "triggerAtHour": 9
             }
           ]
@@ -17,7 +21,10 @@
       "name": "Schedule Trigger",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [0, 0]
+      "position": [
+        0,
+        0
+      ]
     },
     {
       "parameters": {
@@ -31,7 +38,10 @@
       "name": "Fetch Existing Posts",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [220, 0],
+      "position": [
+        220,
+        0
+      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "github-cred",
@@ -47,7 +57,10 @@
       "name": "Parse Existing Posts",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [440, 0]
+      "position": [
+        440,
+        0
+      ]
     },
     {
       "parameters": {
@@ -55,7 +68,7 @@
         "messages": {
           "values": [
             {
-              "content": "You are the content strategist for Green Planet Gardening, a luxury landscaping company based in Paphos, Cyprus (greenplanetgardening.eu). Select a new blog topic.\n\nToday's date: {{ $now.format('yyyy-MM-dd') }}\n\nALREADY PUBLISHED — do NOT repeat these topics:\n{{ $json.existingTopics.join('\\n') }}\n\nTOPIC STRATEGY:\n- Focus on Cyprus-specific gardening, landscaping, and outdoor living\n- Consider the current season in Cyprus (Mediterranean: hot dry summers Apr-Oct, mild wet winters Nov-Mar)\n- Target long-tail keywords with local intent (e.g. \"best trees for Cyprus gardens\" not just \"best trees\")\n- Topics should answer specific questions people ask Google AND AI assistants about gardening in Cyprus/Mediterranean\n- Aim for topics that establish Green Planet as THE authority for luxury landscaping in Cyprus\n- Mix content types: how-to guides, seasonal tips, plant spotlights, design inspiration, sustainability\n\nSEO + AI OPTIMIZATION:\n- Choose a primary keyword phrase (3-5 words) with clear search intent\n- Include 3 search terms that real users would type or ask an AI\n- Title must be compelling, 50-60 characters, include the primary keyword\n- Think about what questions an AI like ChatGPT or Perplexity would cite this article for\n\nOutput ONLY a valid JSON object (no markdown, no code blocks):\n{\n  \"topic\": \"The blog post topic\",\n  \"targetKeyword\": \"primary SEO keyword phrase (3-5 words)\",\n  \"secondaryKeywords\": [\"secondary keyword 1\", \"secondary keyword 2\"],\n  \"suggestedTitle\": \"SEO-optimised blog title (50-60 chars)\",\n  \"slug\": \"url-friendly-slug\",\n  \"category\": \"Garden Guide | Plant Guide | Design Inspiration | Project Spotlight | Sustainability\",\n  \"season\": \"spring | summer | autumn | winter | year-round\",\n  \"searchTerms\": [\"image search term 1\", \"image search term 2\", \"image search term 3\"],\n  \"faqQuestions\": [\"Question people ask about this topic?\", \"Another common question?\"]\n}"
+              "content": "You are the content strategist for Green Planet Gardening, a luxury landscaping company based in Paphos, Cyprus (greenplanetgardening.eu). Select a new blog topic.\n\nToday's date: {{ $now.format('yyyy-MM-dd') }}\n\nALREADY PUBLISHED \u2014 do NOT repeat these topics:\n{{ $json.existingTopics.join('\\n') }}\n\nTOPIC STRATEGY:\n- Focus on Cyprus-specific gardening, landscaping, and outdoor living\n- Consider the current season in Cyprus (Mediterranean: hot dry summers Apr-Oct, mild wet winters Nov-Mar)\n- Target long-tail keywords with local intent (e.g. \"best trees for Cyprus gardens\" not just \"best trees\")\n- Topics should answer specific questions people ask Google AND AI assistants about gardening in Cyprus/Mediterranean\n- Aim for topics that establish Green Planet as THE authority for luxury landscaping in Cyprus\n- Mix content types: how-to guides, seasonal tips, plant spotlights, design inspiration, sustainability\n\nSEO + AI OPTIMIZATION:\n- Choose a primary keyword phrase (3-5 words) with clear search intent\n- Include 3 search terms that real users would type or ask an AI\n- Title must be compelling, 50-60 characters, include the primary keyword\n- Think about what questions an AI like ChatGPT or Perplexity would cite this article for\n\nOutput ONLY a valid JSON object (no markdown, no code blocks):\n{\n  \"topic\": \"The blog post topic\",\n  \"targetKeyword\": \"primary SEO keyword phrase (3-5 words)\",\n  \"secondaryKeywords\": [\"secondary keyword 1\", \"secondary keyword 2\"],\n  \"suggestedTitle\": \"SEO-optimised blog title (50-60 chars)\",\n  \"slug\": \"url-friendly-slug\",\n  \"category\": \"Garden Guide | Plant Guide | Design Inspiration | Project Spotlight | Sustainability\",\n  \"season\": \"spring | summer | autumn | winter | year-round\",\n  \"searchTerms\": [\"image search term 1\", \"image search term 2\", \"image search term 3\"],\n  \"faqQuestions\": [\"Question people ask about this topic?\", \"Another common question?\"]\n}"
             }
           ]
         },
@@ -68,7 +81,10 @@
       "name": "Topic Selection (Claude)",
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.2,
-      "position": [660, 0],
+      "position": [
+        660,
+        0
+      ],
       "credentials": {
         "anthropicApi": {
           "id": "anthropic-cred",
@@ -84,7 +100,10 @@
       "name": "Parse Topic JSON",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [880, 0]
+      "position": [
+        880,
+        0
+      ]
     },
     {
       "parameters": {
@@ -92,7 +111,7 @@
         "messages": {
           "values": [
             {
-              "content": "You are a senior content writer for Green Planet Gardening (greenplanetgardening.eu), a luxury landscaping company in Paphos, Cyprus, run by a family with 30 years of Mediterranean gardening experience.\n\nWrite a blog post based on the provided topic.\n\nTopic: {{ $json.topic }}\nTarget Keyword: {{ $json.targetKeyword }}\nSecondary Keywords: {{ $json.secondaryKeywords ? $json.secondaryKeywords.join(', ') : '' }}\nSuggested Title: {{ $json.suggestedTitle }}\nCategory: {{ $json.category }}\nFAQ Questions: {{ $json.faqQuestions ? $json.faqQuestions.join(' | ') : '' }}\n\nBRAND VOICE:\n- Sophisticated yet warm and approachable\n- Knowledgeable like an experienced garden architect speaking personally\n- Never salesy, always genuinely helpful with actionable advice\n- Cyprus-specific — reference local climate zones, soil (limestone/alkaline), specific plants that thrive here, water scarcity challenges\n- Occasionally mention \"our team\" or \"we've found in our projects\" for authenticity\n\nSEO OPTIMIZATION:\n- Target keyword in: title (frontmatter), first paragraph, one H2 heading, meta description, and 2-3 times naturally in body\n- Secondary keywords woven in naturally, each appearing 1-2 times\n- Meta description (frontmatter \"description\"): exactly 145-155 characters, compelling, includes target keyword\n- Use H2 for main sections, H3 for subsections — clear hierarchy\n- Include one bullet/numbered list per major section for featured snippets\n- Write a \"Frequently Asked Questions\" H2 section at the end with 3-4 Q&As using H3 for each question — these should be real questions people search for\n\nLLM/AI OPTIMIZATION (so AI assistants cite this article):\n- Start each major section with a clear, direct 1-2 sentence answer before elaborating\n- Use specific numbers, measurements, and data points (e.g. \"water 2-3 times per week\" not \"water regularly\")\n- Include definitive statements that AI can extract as facts (e.g. \"Bougainvillea thrives in Cyprus's USDA zone 10b climate\")\n- Name specific plant species, products, or techniques — not vague generalities\n- Structure content so each H2 section can stand alone as a complete answer to a question\n\nLAYOUT RULES (CRITICAL — the blog template displays the title and hero image separately):\n- The frontmatter title IS the page title — it appears above the hero image, NOT as an overlay\n- Do NOT start the markdown body with the title again or with an image — the template handles both\n- Start the body text directly with the opening paragraph\n- Do NOT include any inline images (![...]) in the markdown body — the hero image from frontmatter is the only image\n- The template automatically displays the hero image below the title\n\nSTRUCTURE:\n- Frontmatter fields: title, description (145-155 chars), pubDate ({{ $now.format('yyyy-MM-dd') }}), author (\"Green Planet Gardening\"), image (\"/images/blog/{{ $json.slug }}.jpg\"), imageAlt (descriptive, keyword-rich), tags (5-7 relevant tags as array), category\n- 1000-1800 words total\n- Opening paragraph: hook + target keyword + what the reader will learn\n- 3-5 H2 sections with substantive content\n- FAQ section (H2) with 3-4 questions as H3s — answer each in 2-3 sentences\n- Final CTA paragraph: naturally link to [our services](/services) and [get in touch](/contact)\n- At least 3 internal links total: /services, /contact, /gallery, /plant-ai, or /about\n- Use bold for key takeaways within paragraphs\n\nOUTPUT: Only the complete Markdown file content starting with ---, nothing else. No code block wrappers."
+              "content": "You are a senior content writer for Green Planet Gardening (greenplanetgardening.eu), a luxury landscaping company in Paphos, Cyprus, run by a family with 30 years of Mediterranean gardening experience.\n\nWrite a blog post based on the provided topic.\n\nTopic: {{ $json.topic }}\nTarget Keyword: {{ $json.targetKeyword }}\nSecondary Keywords: {{ $json.secondaryKeywords ? $json.secondaryKeywords.join(', ') : '' }}\nSuggested Title: {{ $json.suggestedTitle }}\nCategory: {{ $json.category }}\nFAQ Questions: {{ $json.faqQuestions ? $json.faqQuestions.join(' | ') : '' }}\n\nBRAND VOICE:\n- Sophisticated yet warm and approachable\n- Knowledgeable like an experienced garden architect speaking personally\n- Never salesy, always genuinely helpful with actionable advice\n- Cyprus-specific \u2014 reference local climate zones, soil (limestone/alkaline), specific plants that thrive here, water scarcity challenges\n- Occasionally mention \"our team\" or \"we've found in our projects\" for authenticity\n\nSEO OPTIMIZATION:\n- Target keyword in: title (frontmatter), first paragraph, one H2 heading, meta description, and 2-3 times naturally in body\n- Secondary keywords woven in naturally, each appearing 1-2 times\n- Meta description (frontmatter \"description\"): exactly 145-155 characters, compelling, includes target keyword\n- Use H2 for main sections, H3 for subsections \u2014 clear hierarchy\n- Include one bullet/numbered list per major section for featured snippets\n- Write a \"Frequently Asked Questions\" H2 section at the end with 3-4 Q&As using H3 for each question \u2014 these should be real questions people search for\n\nLLM/AI OPTIMIZATION (so AI assistants cite this article):\n- Start each major section with a clear, direct 1-2 sentence answer before elaborating\n- Use specific numbers, measurements, and data points (e.g. \"water 2-3 times per week\" not \"water regularly\")\n- Include definitive statements that AI can extract as facts (e.g. \"Bougainvillea thrives in Cyprus's USDA zone 10b climate\")\n- Name specific plant species, products, or techniques \u2014 not vague generalities\n- Structure content so each H2 section can stand alone as a complete answer to a question\n\nLAYOUT RULES (CRITICAL \u2014 the blog template displays the title and hero image separately):\n- The frontmatter title IS the page title \u2014 it appears above the hero image, NOT as an overlay\n- Do NOT start the markdown body with the title again or with an image \u2014 the template handles both\n- Start the body text directly with the opening paragraph\n- Do NOT include any inline images (![...]) in the markdown body \u2014 the hero image from frontmatter is the only image\n- The template automatically displays the hero image below the title\n\nSTRUCTURE:\n- Frontmatter fields: title, description (145-155 chars), pubDate ({{ $now.format('yyyy-MM-dd') }}), author (\"Green Planet Gardening\"), image (\"/images/blog/{{ $json.slug }}.jpg\"), imageAlt (descriptive, keyword-rich), tags (5-7 relevant tags as array), category\n- 1000-1800 words total\n- Opening paragraph: hook + target keyword + what the reader will learn\n- 3-5 H2 sections with substantive content\n- FAQ section (H2) with 3-4 questions as H3s \u2014 answer each in 2-3 sentences\n- Final CTA paragraph: naturally link to [our services](/services) and [get in touch](/contact)\n- At least 3 internal links total: /services, /contact, /gallery, /plant-ai, or /about\n- Use bold for key takeaways within paragraphs\n\nOUTPUT: Only the complete Markdown file content starting with ---, nothing else. No code block wrappers."
             }
           ]
         },
@@ -105,7 +124,10 @@
       "name": "Write Blog Post (Claude)",
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.2,
-      "position": [1100, 0],
+      "position": [
+        1100,
+        0
+      ],
       "credentials": {
         "anthropicApi": {
           "id": "anthropic-cred",
@@ -121,7 +143,10 @@
       "name": "Prepare Blog Content",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1320, 0]
+      "position": [
+        1320,
+        0
+      ]
     },
     {
       "parameters": {
@@ -135,7 +160,10 @@
       "name": "Search Unsplash",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1540, -150],
+      "position": [
+        1540,
+        -150
+      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "unsplash-cred",
@@ -155,7 +183,10 @@
       "name": "Search Pexels",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1540, 150],
+      "position": [
+        1540,
+        150
+      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "pexels-cred",
@@ -165,13 +196,16 @@
     },
     {
       "parameters": {
-        "jsCode": "const topicData = $('Prepare Blog Content').first().json;\nlet imageUrl = '';\nlet imageCredit = '';\n\n// Try Unsplash first — pick the highest quality landscape image\ntry {\n  const unsplash = $('Search Unsplash').first().json;\n  if (unsplash.results && unsplash.results.length > 0) {\n    // Prefer images with good dimensions for hero (wide landscape)\n    const best = unsplash.results.find(r => r.width > r.height * 1.4) || unsplash.results[0];\n    imageUrl = best.urls.regular;\n    imageCredit = `Photo by ${best.user.name} on Unsplash`;\n  }\n} catch (e) {}\n\n// Fallback to Pexels\nif (!imageUrl) {\n  try {\n    const pexels = $('Search Pexels').first().json;\n    if (pexels.photos && pexels.photos.length > 0) {\n      const best = pexels.photos.find(p => p.width > p.height * 1.4) || pexels.photos[0];\n      imageUrl = best.src.large2x || best.src.large;\n      imageCredit = `Photo by ${best.photographer} on Pexels`;\n    }\n  } catch (e) {}\n}\n\nif (!imageUrl) {\n  imageUrl = '';\n  imageCredit = 'Green Planet Gardening';\n}\n\nreturn [{\n  json: {\n    ...topicData,\n    imageUrl,\n    imageCredit\n  }\n}];"
+        "jsCode": "const topicData = $('Prepare Blog Content').first().json;\nlet imageUrl = '';\nlet imageCredit = '';\n\n// Try Unsplash first \u2014 pick the highest quality landscape image\ntry {\n  const unsplash = $('Search Unsplash').first().json;\n  if (unsplash.results && unsplash.results.length > 0) {\n    // Prefer images with good dimensions for hero (wide landscape)\n    const best = unsplash.results.find(r => r.width > r.height * 1.4) || unsplash.results[0];\n    imageUrl = best.urls.regular;\n    imageCredit = `Photo by ${best.user.name} on Unsplash`;\n  }\n} catch (e) {}\n\n// Fallback to Pexels\nif (!imageUrl) {\n  try {\n    const pexels = $('Search Pexels').first().json;\n    if (pexels.photos && pexels.photos.length > 0) {\n      const best = pexels.photos.find(p => p.width > p.height * 1.4) || pexels.photos[0];\n      imageUrl = best.src.large2x || best.src.large;\n      imageCredit = `Photo by ${best.photographer} on Pexels`;\n    }\n  } catch (e) {}\n}\n\nif (!imageUrl) {\n  imageUrl = '';\n  imageCredit = 'Green Planet Gardening';\n}\n\nreturn [{\n  json: {\n    ...topicData,\n    imageUrl,\n    imageCredit\n  }\n}];"
       },
       "id": "select-image",
       "name": "Select Best Image",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1760, 0]
+      "position": [
+        1760,
+        0
+      ]
     },
     {
       "parameters": {
@@ -189,7 +223,10 @@
       "name": "Download Image",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1980, 0]
+      "position": [
+        1980,
+        0
+      ]
     },
     {
       "parameters": {
@@ -206,7 +243,10 @@
       "name": "Commit Image to GitHub",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [2200, 0],
+      "position": [
+        2200,
+        0
+      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "github-cred",
@@ -229,7 +269,10 @@
       "name": "Commit Markdown to GitHub",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [2420, 0],
+      "position": [
+        2420,
+        0
+      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "github-cred",
@@ -272,7 +315,10 @@
       "name": "Success Output",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [2640, 0]
+      "position": [
+        2640,
+        0
+      ]
     }
   ],
   "connections": {
@@ -427,13 +473,5 @@
   },
   "settings": {
     "executionOrder": "v1"
-  },
-  "tags": [
-    {
-      "name": "green-planet"
-    },
-    {
-      "name": "blog-autopilot"
-    }
-  ]
+  }
 }

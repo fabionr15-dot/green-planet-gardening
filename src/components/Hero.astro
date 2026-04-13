@@ -21,12 +21,13 @@ const words = title.split(' ');
   <!-- SPLIT HERO: video/image left, text right -->
   <section class="hero-split">
     <div class="hero-split-image">
-      {videoSrc && (
-        <video autoplay muted loop playsinline poster={videoPoster || backgroundImage}>
+      {videoSrc ? (
+        <video autoplay muted loop playsinline preload="auto">
           <source src={videoSrc} type="video/mp4" />
         </video>
+      ) : (
+        <img src={videoPoster || backgroundImage} alt="Luxury Mediterranean villa garden with pool" width="1400" height="933" loading="eager" />
       )}
-      <img src={videoPoster || backgroundImage} alt="Luxury Mediterranean villa garden with pool" width="1400" height="933" loading="eager" />
     </div>
     <div class="hero-split-text">
       {tagline && <p class="hero-tagline">{tagline}</p>}
@@ -51,6 +52,8 @@ const words = title.split(' ');
       alt=""
       class="hero-bg"
       loading="eager"
+      fetchpriority="high"
+      decoding="sync"
       width="1920"
       height="1280"
     />

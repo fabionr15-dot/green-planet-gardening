@@ -3,7 +3,7 @@ title: "Transform Your Luxury Cyprus Home into a Vibrant Butterfly Garden"
 description: "Discover the secrets to creating a stunning butterfly garden in the Mediterranean climate of Cyprus. Explore the perfect plants and design tips for your luxury home."
 pubDate: "2026-03-14"
 author: "Green Planet Team"
-image: "/images/blog/garden-design.jpg"
+image: "/images/blog/best-spring-flowers-luxury-cyprus-gardens-2026.jpg"
 imageAlt: "How to Create a Butterfly Garden in the Cyprus Climate - Green Planet Gardening Cyprus"
 tags: ["Butterfly Garden", "Cyprus Garden", "Mediterranean Gardening", "Luxury Landscaping", "Sustainable Gardening"]
 category: "Garden Design"

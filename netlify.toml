@@ -123,10 +123,17 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# JS assets (hashed filenames from Astro build)
 [[headers]]
-  for = "/*.js"
+  for = "/_astro/*.js"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Service worker must never be cached immutably
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
 
 [[headers]]
   for = "/*.woff2"

@@ -3,7 +3,7 @@ title: "Vertical Gardens and Green Walls for Cyprus Apartments"
 description: "Discover how to transform your Cyprus apartment with stunning vertical gardens and green walls. Bring nature's beauty into your urban oasis."
 pubDate: "2026-03-14"
 author: "Green Planet Team"
-image: "/images/blog/garden-design.jpg"
+image: "/images/blog/mediterranean-garden-design-cyprus.jpg"
 imageAlt: "Vertical Gardens and Green Walls for Cyprus Apartments - Green Planet Gardening Cyprus"
 tags: ["Vertical Gardens", "Green Walls", "Cyprus Apartments", "Mediterranean Gardens", "Urban Landscaping"]
 category: "Garden Design"

@@ -243,22 +243,107 @@ a, button {
   border-bottom: 1px solid rgba(212, 197, 169, 0.2);
 }
 
-.nav-logo-img-cinema {
-  height: 40px; width: auto;
-  filter: brightness(0) invert(1);
-  transition: filter 0.5s ease;
+/* --- Logo Link --- */
+.nav-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
 }
 
-.nav-cinematic.scrolled .nav-logo-img-cinema { filter: none; }
+/* --- Logo Glow Wrapper --- */
+.logo-glow-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+}
 
+/* --- Logo Image --- */
+.nav-logo-img-cinema {
+  height: 48px; width: auto;
+  filter: brightness(0) invert(1);
+  transition: filter 0.5s ease, transform 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.nav-cinematic.scrolled .nav-logo-img-cinema {
+  filter: drop-shadow(0 0 8px rgba(200, 169, 81, 0.4)) drop-shadow(0 0 20px rgba(200, 169, 81, 0.15));
+}
+
+/* Hover: subtle scale + stronger glow */
+.nav-logo-link:hover .nav-logo-img-cinema {
+  transform: scale(1.08);
+}
+
+.nav-cinematic.scrolled .nav-logo-link:hover .nav-logo-img-cinema {
+  filter: drop-shadow(0 0 12px rgba(200, 169, 81, 0.6)) drop-shadow(0 0 30px rgba(200, 169, 81, 0.25));
+}
+
+/* --- Shine Sweep Effect --- */
+.logo-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(255, 248, 220, 0.15) 42%,
+    rgba(255, 241, 193, 0.3) 50%,
+    rgba(255, 248, 220, 0.15) 58%,
+    transparent 65%,
+    transparent 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+  transform: skewX(-15deg);
+  animation: logoShineSweep 6s ease-in-out 3s infinite;
+}
+
+/* Only show shine when scrolled (logo in color) */
+.nav-cinematic:not(.scrolled) .logo-shine {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes logoShineSweep {
+  0%, 85% { left: -100%; opacity: 0; }
+  88% { opacity: 1; }
+  100% { left: 200%; opacity: 0; }
+}
+
+/* Hover triggers an immediate shine */
+.nav-logo-link:hover .logo-shine {
+  animation: logoShineHover 0.8s ease-out forwards;
+}
+
+@keyframes logoShineHover {
+  0% { left: -100%; opacity: 1; }
+  100% { left: 200%; opacity: 0; }
+}
+
+/* --- Logo Text --- */
 .nav-logo-text-cinema {
   font-family: var(--font-playfair);
   font-size: 20px; font-weight: 600;
   color: white; letter-spacing: 0.02em;
-  transition: color 0.5s ease;
+  transition: color 0.5s ease, text-shadow 0.5s ease;
 }
 
-.nav-cinematic.scrolled .nav-logo-text-cinema { color: var(--color-forest); }
+.nav-cinematic.scrolled .nav-logo-text-cinema {
+  color: var(--color-forest);
+  text-shadow: 0 0 0 transparent;
+}
+
+.nav-logo-link:hover .nav-logo-text-cinema {
+  text-shadow: 0 0 20px rgba(200, 169, 81, 0.2);
+}
 
 .nav-link-cinema {
   color: rgba(255,255,255,0.8);

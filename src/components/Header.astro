@@ -5,8 +5,11 @@ const currentPath = Astro.url.pathname;
 
 <header id="main-header" class="nav-cinematic">
   <div class="nav-left" style="display:flex;align-items:center;gap:14px;">
-    <a href="/" style="display:flex;align-items:center;gap:14px;">
-      <img src="/images/logo/green-planet-logo.png" alt="Green Planet Gardening" class="nav-logo-img-cinema" width="40" height="40" />
+    <a href="/" class="nav-logo-link">
+      <span class="logo-glow-wrapper">
+        <img src="/images/logo/green-planet-logo.png" alt="Green Planet Gardening" class="nav-logo-img-cinema" width="48" height="48" />
+        <span class="logo-shine"></span>
+      </span>
       <span class="nav-logo-text-cinema">Green Planet</span>
     </a>
   </div>

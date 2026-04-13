@@ -17,6 +17,7 @@
     "@astrojs/netlify": "^6.6.4",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.7.0",
+    "@rollup/rollup-linux-arm64-gnu": "^4.60.0",
     "astro": "^5.18.0",
     "jspdf": "^4.2.0",
     "react": "^19.2.4",

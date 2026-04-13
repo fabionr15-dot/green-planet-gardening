@@ -10,8 +10,8 @@ export default function PlantAI() {
 
   const handleFile = (file) => {
     if (!file) return;
-    if (file.size > 5 * 1024 * 1024) {
-      setError('Image must be smaller than 5MB');
+    if (file.size > 10 * 1024 * 1024) {
+      setError('Image must be smaller than 10MB');
       return;
     }
     if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
@@ -24,17 +24,33 @@ export default function PlantAI() {
     setPreview(URL.createObjectURL(file));
   };
 
+  const resizeImage = (file, maxDim = 1200, quality = 0.8) =>
+    new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDim || height > maxDim) {
+          const ratio = Math.min(maxDim / width, maxDim / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = () => reject(new Error('Failed to load image'));
+      img.src = URL.createObjectURL(file);
+    });
+
   const identify = async () => {
     if (!image) return;
     setLoading(true);
     setError(null);
 
     try {
-      const reader = new FileReader();
-      const base64 = await new Promise((resolve) => {
-        reader.onload = () => resolve(reader.result);
-        reader.readAsDataURL(image);
-      });
+      const base64 = await resizeImage(image);
 
       const res = await fetch('/.netlify/functions/identify-plant', {
         method: 'POST',
@@ -76,11 +92,12 @@ export default function PlantAI() {
               </svg>
               <p className="text-[#2D2D2D] font-medium mb-1">Upload a plant photo</p>
               <p className="text-[#8B8680] text-sm">Click to browse or drag & drop</p>
-              <p className="text-[#8B8680] text-xs mt-2">JPG, PNG, WebP — max 5MB</p>
+              <p className="text-[#8B8680] text-xs mt-2">JPG, PNG, WebP — max 10MB</p>
               <input
                 ref={fileRef}
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
+                capture="environment"
                 className="hidden"
                 onChange={(e) => handleFile(e.target.files?.[0])}
               />
