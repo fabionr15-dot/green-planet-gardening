@@ -65,8 +65,21 @@ export async function handler(event) {
       return { statusCode: 404, headers: corsHeaders, body: JSON.stringify({ error: 'Could not identify this plant. Try a clearer photo.' }) };
     }
 
-    const plantName = bestMatch.species?.commonNames?.[0] || bestMatch.species?.scientificNameWithoutAuthor || 'Unknown';
-    const botanicalName = bestMatch.species?.scientificNameWithoutAuthor || '';
+    // PlantNet's commonNames field is crowdsourced free text, not a controlled
+    // enum -- sanitize before it is interpolated into the Claude prompt below
+    // to close the prompt-injection path (strip prompt-control characters,
+    // cap length so a crafted entry can't smuggle a large instruction block).
+    const sanitizeForPrompt = (value) => {
+      if (typeof value !== 'string') return '';
+      return value
+        .replace(/[\r\n]+/g, ' ')
+        .replace(/["'`{}<>]/g, '')
+        .trim()
+        .slice(0, 100);
+    };
+
+    const plantName = sanitizeForPrompt(bestMatch.species?.commonNames?.[0]) || sanitizeForPrompt(bestMatch.species?.scientificNameWithoutAuthor) || 'Unknown';
+    const botanicalName = sanitizeForPrompt(bestMatch.species?.scientificNameWithoutAuthor);
     const confidence = bestMatch.score || 0;
 
     // Step 2: Get care guide from Claude
@@ -100,12 +113,42 @@ export async function handler(event) {
     const claudeData = await claudeRes.json();
     const careText = claudeData.content?.[0]?.text || '{}';
 
-    let careGuide;
+    let parsed;
     try {
-      careGuide = JSON.parse(careText);
+      parsed = JSON.parse(careText);
     } catch {
-      careGuide = { commonName: plantName, botanicalName };
+      parsed = {};
     }
+
+    // Claude's output is model-generated text, not a trusted internal value --
+    // allowlist the expected shape/fields and cap string lengths before this
+    // response is forwarded to the browser, instead of spreading whatever
+    // the model produced verbatim.
+    const asString = (value, maxLen = 2000) => (typeof value === 'string' ? value.slice(0, maxLen) : '');
+    const asStringArray = (value, maxItems = 20, maxLen = 200) =>
+      Array.isArray(value) ? value.filter((v) => typeof v === 'string').slice(0, maxItems).map((v) => v.slice(0, maxLen)) : [];
+
+    const watering = parsed.watering && typeof parsed.watering === 'object' ? parsed.watering : {};
+
+    const careGuide = {
+      commonName: asString(parsed.commonName, 100) || plantName,
+      botanicalName: asString(parsed.botanicalName, 100) || botanicalName,
+      family: asString(parsed.family, 100),
+      difficulty: ['Beginner', 'Intermediate', 'Expert'].includes(parsed.difficulty) ? parsed.difficulty : '',
+      watering: {
+        summer: asString(watering.summer),
+        winter: asString(watering.winter),
+        tips: asString(watering.tips),
+      },
+      light: asString(parsed.light),
+      soil: asString(parsed.soil),
+      fertilising: asString(parsed.fertilising),
+      pruning: asString(parsed.pruning),
+      pests: asString(parsed.pests),
+      cyprusTips: asString(parsed.cyprusTips),
+      bestPlantingTime: asString(parsed.bestPlantingTime, 200),
+      companionPlants: asStringArray(parsed.companionPlants),
+    };
 
     return {
       statusCode: 200,

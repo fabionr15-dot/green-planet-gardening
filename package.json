@@ -14,11 +14,11 @@
     "build:check": "astro build && node scripts/seo-check.mjs"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.6.4",
-    "@astrojs/react": "^4.4.2",
-    "@astrojs/sitemap": "^3.7.0",
-    "astro": "^5.18.0",
-    "jspdf": "^4.2.0",
+    "@astrojs/netlify": "^8.2.5",
+    "@astrojs/react": "^6.0.5",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.2",
+    "jspdf": "^4.2.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
