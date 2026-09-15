@@ -18,7 +18,6 @@ const words = title.split(' ');
 ---
 
 {variant === 'split' ? (
-  <!-- SPLIT HERO: video/image left, text right -->
   <section class="hero-split">
     <div class="hero-split-image">
       {videoSrc && (
@@ -44,7 +43,6 @@ const words = title.split(' ');
     </div>
   </section>
 ) : (
-  <!-- DEFAULT / INNER HERO -->
   <section class:list={['hero-cinema', variant === 'inner' && 'hero-inner']}>
     <img
       src={backgroundImage}

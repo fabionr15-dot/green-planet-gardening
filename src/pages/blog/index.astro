@@ -23,7 +23,7 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
   <section class="section-padding" style="background:var(--color-cream);">
     <div class="blog-grid-cinema">
       {posts.map((post, i) => (
-        <a href={`/blog/${post.slug}`} class="blog-card-cinema reveal" style={`--i:${i}`}>
+        <a href={`/blog/${post.id}`} class="blog-card-cinema reveal" style={`--i:${i}`}>
           <div class="blog-card-image" data-image-hover>
             <img src={post.data.image} alt={post.data.imageAlt} loading="lazy" width="600" height="400" />
           </div>

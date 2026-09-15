@@ -94,5 +94,9 @@ if (faq && faq.length > 0) {
 ---
 
 {schemas.map(s => (
-  <script type="application/ld+json" set:html={JSON.stringify(s)} />
+  // JSON.stringify does not escape "<", so an embedded "</script>" sequence
+  // (e.g. from LLM-generated blog frontmatter) could close this tag early
+  // and inject markup. Escaping "<" to its unicode form keeps the JSON-LD
+  // valid while making that sequence inert.
+  <script type="application/ld+json" set:html={JSON.stringify(s).replace(/</g, '\\u003c')} />
 ))}
